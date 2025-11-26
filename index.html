@@ -9,8 +9,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- html2canvas + jsPDF for PDF export -->
+  <!-- html2canvas (kept for possible future use) -->
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -92,15 +93,15 @@
             <span class="font-semibold">overload setting</span>, and <span class="font-semibold">voltage drop</span>.
           </p>
 
-          <!-- Input tabs -->
-          <div class="border-b border-white/25 mb-3">
-            <nav class="-mb-px flex flex-wrap gap-3 text-[11px] sm:text-xs">
+          <!-- Input tabs (bigger / more visible) -->
+          <div class="border-b border-white/30 mb-3">
+            <nav class="-mb-px flex flex-wrap gap-2 text-sm">
               <button id="input-tab-sysload"
-                      class="border-b-2 border-white text-white font-semibold pb-1 pr-3">
+                      class="input-tab-active border-b-2 border-white text-white font-semibold pb-2 px-3 rounded-t-md bg-white/15">
                 <i class="fas fa-microchip mr-1"></i> System &amp; Load
               </button>
               <button id="input-tab-condvd"
-                      class="border-b-2 border-transparent text-sky-100 pb-1 pr-3 hover:text-white">
+                      class="border-b-2 border-transparent text-sky-50 pb-2 px-3 rounded-t-md hover:bg-white/10 hover:text-white">
                 <i class="fas fa-stream mr-1"></i> Conductors &amp; VD
               </button>
             </nav>
@@ -1078,7 +1079,7 @@
       const margin = parseFloat(document.getElementById('design-margin').value) || 1.0;
       const contFactor = continuous ? 1.25 : 1.0;
       const MCA = Iload * contFactor * margin;
-      return { MCA, contFactor, margin };
+      return { MCA, contFactor, margin, continuous };
     };
 
     const sizeBreakerFuse = (appType, MCA, Iload, motorFLCUsed) => {
@@ -1213,7 +1214,7 @@
         const faultLevel = parseFloat(document.getElementById('fault-level').value) || 25;
 
         const { Iload, motorFLCUsed } = calculateLoadCurrent();
-        const { MCA, contFactor, margin } = applyMCAFactors(Iload);
+        const { MCA, contFactor, margin, continuous } = applyMCAFactors(Iload);
         const { breakerSize, fuseSize, deviceFactor, olFactor } =
           sizeBreakerFuse(appType, MCA, Iload, motorFLCUsed);
 
@@ -1338,6 +1339,7 @@
           breakerSize
         );
 
+        // Store last sizing for CSV/PDF
         window._lastSizing = {
           Iload,
           MCA,
@@ -1351,7 +1353,12 @@
           deviceFactor,
           olFactor,
           motorFLCUsed,
-          devName
+          devName,
+          systemType,
+          V,
+          contFactor,
+          margin,
+          continuous
         };
 
       } catch (err) {
@@ -1374,8 +1381,13 @@
         ['Parameter', 'Value'],
         ['Device Name', s.devName || ''],
         ['Application Type', s.appType],
+        ['System Type', s.systemType === 'three' ? 'Three-phase' : 'Single-phase'],
+        ['Voltage (V)', s.V.toFixed(1)],
         ['Load Current (A)', s.Iload.toFixed(2)],
         ['MCA (A)', s.MCA.toFixed(2)],
+        ['Continuous Load?', s.continuous ? 'Yes' : 'No'],
+        ['Continuous Factor', s.contFactor.toFixed(2)],
+        ['Design Margin', s.margin.toFixed(2)],
         ['Breaker Size (A)', s.breakerSize],
         ['Fuse Size (A)', s.fuseSize],
         ['Motor FLC (A)', s.motorFLCUsed !== null ? s.motorFLCUsed.toFixed(2) : '—'],
@@ -1389,15 +1401,16 @@
         ['Fault Level (kA)', s.faultLevel.toFixed(1)],
       ];
 
-      if (vd) {
+      const vdObj = window._lastVD;
+      if (vdObj) {
         rows.push(
-          ['VD Nominal Voltage (V)', vd.V.toFixed(1)],
-          ['VD Max Drop (V)', vd.VdropAllowed.toFixed(2)],
-          ['VD Actual Drop (V)', vd.Vdrop.toFixed(2)],
-          ['VD Actual Drop (%)', vd.VdropPct.toFixed(2)],
-          ['VD Load Voltage (V)', vd.Vload.toFixed(2)],
-          ['VD Distance (ft, one-way)', vd.distance.toFixed(0)],
-          ['VD Max Distance (ft, one-way)', vd.Lmax.toFixed(0)]
+          ['VD Nominal Voltage (V)', vdObj.V.toFixed(1)],
+          ['VD Max Drop (V)', vdObj.VdropAllowed.toFixed(2)],
+          ['VD Actual Drop (V)', vdObj.Vdrop.toFixed(2)],
+          ['VD Actual Drop (%)', vdObj.VdropPct.toFixed(2)],
+          ['VD Load Voltage (V)', vdObj.Vload.toFixed(2)],
+          ['VD Distance (ft, one-way)', vdObj.distance.toFixed(0)],
+          ['VD Max Distance (ft, one-way)', vdObj.Lmax.toFixed(0)]
         );
       }
 
@@ -1421,29 +1434,115 @@
       URL.revokeObjectURL(url);
     };
 
+    // STRUCTURED PDF REPORT (not screenshot)
     const exportPdf = async () => {
       try {
-        if (typeof html2canvas === 'undefined' || !window.jspdf) {
-          return window.print();
+        if (!window.jspdf || !window._lastSizing) {
+          showError('Run a calculation before exporting PDF.');
+          return;
         }
-        // make sure summary tab is active and scroll to top
-        activateTab('summary');
-        window.scrollTo(0, 0);
 
-        const container = document.querySelector('main') || document.body;
-        const canvas = await html2canvas(container, { scale: 2, useCORS: true });
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new window.jspdf.jsPDF({ unit: 'pt', format: 'a4' });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        const s = window._lastSizing;
+        const vd = window._lastVD;
+        const { jsPDF } = window.jspdf;
 
-        const devName = (document.getElementById('device-name').value || '').trim();
-        const cleanName = devName
-          ? devName.replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '')
-          : 'Report';
+        const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+        const marginLeft = 40;
+        let y = 50;
 
-        pdf.save(`OFORI_E-sizing_${cleanName}.pdf`);
+        const addLine = (text, opts = {}) => {
+          const { bold = false, size = 10 } = opts;
+          pdf.setFont('helvetica', bold ? 'bold' : 'normal');
+          pdf.setFontSize(size);
+          const lines = pdf.splitTextToSize(text, 515 - marginLeft);
+          lines.forEach(line => {
+            if (y > 770) { // new page if near bottom
+              pdf.addPage();
+              y = 50;
+            }
+            pdf.text(line, marginLeft, y);
+            y += size + 4;
+          });
+        };
+
+        // Header
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(16);
+        pdf.text('OFORI E-sizing — NEC Sizing Report', marginLeft, y);
+        y += 24;
+
+        const devName = s.devName || '—';
+        pdf.setFontSize(12);
+        pdf.text(`Circuit / Device: ${devName}`, marginLeft, y);
+        y += 18;
+
+        const now = new Date();
+        addLine(`Generated: ${now.toLocaleString()}`, { size: 9 });
+        y += 6;
+
+        // Section: System & Load
+        y += 10;
+        addLine('1. System & Load', { bold: true, size: 12 });
+        addLine(`Application Type: ${s.appType}`);
+        addLine(`System Type: ${s.systemType === 'three' ? 'Three-phase' : 'Single-phase'}`);
+        addLine(`Nominal Voltage: ${s.V.toFixed(1)} V`);
+        addLine(`Load Current (Iload): ${s.Iload.toFixed(2)} A`);
+        addLine(`Continuous Load: ${s.continuous ? 'Yes' : 'No'} (factor ${s.contFactor.toFixed(2)})`);
+        addLine(`Design Margin: ${s.margin.toFixed(2)}×`);
+        addLine(`Minimum Circuit Ampacity (MCA): ${s.MCA.toFixed(2)} A`);
+
+        // Section: Protective Devices
+        y += 10;
+        addLine('2. Protective Devices', { bold: true, size: 12 });
+        addLine(`Suggested Breaker: ${s.breakerSize} A (≈ ${(s.deviceFactor * 100).toFixed(0)}% of base current)`);
+        addLine(`Suggested Fuse: ${s.fuseSize} A`);
+        addLine(`Fault Level for IR Check: ${s.faultLevel.toFixed(1)} kA`);
+        if (s.motorFLCUsed) {
+          addLine(`Motor FLC basis: ${s.motorFLCUsed.toFixed(2)} A`);
+        }
+        if (s.olFactor) {
+          addLine(`Overload Setting: ${(s.motorFLCUsed * s.olFactor).toFixed(1)} A (≈ ${(s.olFactor * 100).toFixed(0)}% of FLC)`);
+        }
+
+        // Section: Conductors
+        y += 10;
+        addLine('3. Conductors', { bold: true, size: 12 });
+        if (s.conductor) {
+          addLine(`Phase Conductor: ${s.conductor.size}, approx ampacity ${s.conductor.amp} A`);
+          addLine(`Derating Factor Applied: ${s.derate.toFixed(2)} → Derated Ampacity ≈ ${s.conductor.derated.toFixed(2)} A`);
+          addLine(`Conductor Material: ${s.material.toUpperCase()}`);
+        } else {
+          addLine('No conductor found that meets MCA with given table range — review conductor table.');
+        }
+        addLine('Equipment Ground (EGC): see NEC 250.122 based on breaker size.');
+
+        // Section: Voltage Drop
+        y += 10;
+        addLine('4. Voltage Drop (if distance entered)', { bold: true, size: 12 });
+        if (vd && s.conductor) {
+          addLine(`Conductor Used: ${s.conductor.size}`);
+          addLine(`One-way Distance: ${vd.distance.toFixed(0)} ft`);
+          addLine(`Nominal Voltage: ${vd.V.toFixed(1)} V`);
+          addLine(`Maximum Allowed Drop: ${vd.VdropAllowed.toFixed(2)} V`);
+          addLine(`Actual Drop: ${vd.Vdrop.toFixed(2)} V (${vd.VdropPct.toFixed(2)}%)`);
+          addLine(`Voltage at Load: ${vd.Vload.toFixed(2)} V`);
+          addLine(`Maximum Distance for this Conductor at chosen %VD: ${vd.Lmax.toFixed(0)} ft (one-way)`);
+        } else {
+          addLine('Voltage drop not evaluated — set one-way distance > 0 ft to enable.');
+        }
+
+        // Section: Notes
+        y += 10;
+        addLine('5. Design Notes / Disclaimers', { bold: true, size: 12 });
+        addLine('• Ampacities and factors are approximate and for quick checks only.');
+        addLine('• Always consult the latest National Electrical Code (NEC) and your AHJ.');
+        addLine('• Verify equipment ratings, SCCR, and coordination with manufacturer data.');
+        addLine('• Check NEC Articles 210, 215, 220, 240, 250, 310, and 430 as applicable.');
+
+        const cleanName = (s.devName || 'Report')
+          .replace(/[^a-z0-9]+/gi, '_')
+          .replace(/^_+|_+$/g, '');
+        pdf.save(`OFORI_E-sizing_${cleanName || 'Report'}.pdf`);
       } catch (e) {
         console.warn('PDF export error, fallback to print', e);
         window.print();
@@ -1473,12 +1572,12 @@
         const btn = document.getElementById('input-tab-' + t);
         const section = document.getElementById('input-section-' + t);
         if (t === name) {
-          btn && btn.classList.add('border-b-2', 'border-white', 'text-white', 'font-semibold');
-          btn && btn.classList.remove('border-transparent', 'text-sky-100');
+          btn && btn.classList.add('input-tab-active', 'border-white', 'text-white', 'font-semibold', 'bg-white/15');
+          btn && btn.classList.remove('border-transparent', 'text-sky-50');
           section && show(section);
         } else {
-          btn && btn.classList.remove('border-b-2', 'border-white', 'text-white', 'font-semibold');
-          btn && btn.classList.add('border-b-2', 'border-transparent', 'text-sky-100');
+          btn && btn.classList.remove('input-tab-active', 'border-white', 'text-white', 'font-semibold', 'bg-white/15');
+          btn && btn.classList.add('border-transparent', 'text-sky-50');
           section && hide(section);
         }
       });
