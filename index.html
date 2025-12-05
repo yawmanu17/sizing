@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,10 @@
   <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
   <style>
     .sidebar {
@@ -58,19 +62,24 @@
     <!-- Header -->
     <header class="bg-slate-950/90 backdrop-blur shadow-sm">
       <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+        >
           <div class="flex items-center">
             <i class="fas fa-bolt text-sky-400 text-3xl mr-3"></i>
             <div>
               <h1 class="text-2xl font-bold text-white">OFORI E-sizing</h1>
               <p class="text-xs text-slate-300 -mt-1">
-                NEC Sizing Assistant — LV • MV • HV — Breakers • Fuses • Conductors • VD
+                NEC Sizing Assistant — LV • MV • HV — Breakers • Fuses •
+                Conductors • VD
               </p>
             </div>
           </div>
           <div class="flex gap-3 items-center justify-end">
-            <button id="export-pdf-btn"
-                    class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-emerald-500/90 text-white hover:bg-emerald-400 transition">
+            <button
+              id="export-pdf-btn"
+              class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-emerald-500/90 text-white hover:bg-emerald-400 transition"
+            >
               <i class="fas fa-file-pdf mr-1"></i> Export PDF
             </button>
           </div>
@@ -79,28 +88,39 @@
     </header>
 
     <!-- Main -->
-    <main class="flex-1 max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:px-8 w-full">
+    <main
+      class="flex-1 max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 lg:px-8 w-full"
+    >
       <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
-
         <!-- Sidebar: Inputs -->
-        <aside class="sidebar lg:w-1/3 p-4 sm:p-6 rounded-xl text-white shadow-lg" id="sidebar">
+        <aside
+          class="sidebar lg:w-1/3 p-4 sm:p-6 rounded-xl text-white shadow-lg"
+          id="sidebar"
+        >
           <h2 class="text-lg sm:text-xl font-semibold mb-2 flex items-center">
             <i class="fas fa-sliders-h mr-2"></i> Input Parameters
           </h2>
           <p class="mb-3 text-sky-50 text-xs sm:text-sm leading-snug">
-            Enter basic nameplate/FLC data. Tool applies NEC-style factors for
-            motors, feeders, transformers, generators, and general loads for LV, MV and HV.
+            Enter basic nameplate / FLC data. Tool applies NEC-style factors for
+            LV, MV and HV motors, MCCs, feeders, transformers, generators and
+            general loads.
           </p>
 
           <!-- Input tabs -->
           <div class="border-b border-white/30 mb-3">
-            <nav class="-mb-px flex flex-wrap gap-2 text-sm sm:text-base font-semibold">
-              <button id="input-tab-sysload"
-                      class="input-tab-active border-b-2 border-white text-white pb-2 px-3 rounded-t-md bg-white/15">
+            <nav
+              class="-mb-px flex flex-wrap gap-2 text-sm sm:text-base font-semibold"
+            >
+              <button
+                id="input-tab-sysload"
+                class="input-tab-active border-b-2 border-white text-white pb-2 px-3 rounded-t-md bg-white/15"
+              >
                 <i class="fas fa-microchip mr-1"></i> System &amp; Load
               </button>
-              <button id="input-tab-condvd"
-                      class="border-b-2 border-transparent text-sky-50 pb-2 px-3 rounded-t-md hover:bg-white/10 hover:text-white">
+              <button
+                id="input-tab-condvd"
+                class="border-b-2 border-transparent text-sky-50 pb-2 px-3 rounded-t-md hover:bg-white/10 hover:text-white"
+              >
                 <i class="fas fa-stream mr-1"></i> Conductors &amp; VD
               </button>
             </nav>
@@ -110,23 +130,35 @@
           <div id="input-section-sysload" class="space-y-3">
             <!-- Device name -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium mb-1">Circuit / Device Name</label>
-              <input id="device-name"
-                     type="text"
-                     placeholder="e.g., CW Pump P-101"
-                     class="w-full p-2 rounded text-gray-900 text-sm focus:ring-2 focus:ring-sky-500" />
+              <label class="block text-xs sm:text-sm font-medium mb-1"
+                >Circuit / Device Name</label
+              >
+              <input
+                id="device-name"
+                type="text"
+                placeholder="e.g., CW Pump P-101"
+                class="w-full p-2 rounded text-gray-900 text-sm focus:ring-2 focus:ring-sky-500"
+              />
             </div>
 
             <!-- System type -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium mb-1">System Type</label>
-              <div class="flex rounded-md shadow-sm overflow-hidden text-xs sm:text-sm">
-                <button id="btn-single"
-                        class="flex-1 py-2 px-3 bg-sky-800 hover:bg-sky-700">
+              <label class="block text-xs sm:text-sm font-medium mb-1"
+                >System Type</label
+              >
+              <div
+                class="flex rounded-md shadow-sm overflow-hidden text-xs sm:text-sm"
+              >
+                <button
+                  id="btn-single"
+                  class="flex-1 py-2 px-3 bg-sky-800 hover:bg-sky-700"
+                >
                   1φ
                 </button>
-                <button id="btn-three"
-                        class="flex-1 py-2 px-3 bg-slate-800 hover:bg-sky-700">
+                <button
+                  id="btn-three"
+                  class="flex-1 py-2 px-3 bg-slate-800 hover:bg-sky-700"
+                >
                   3φ
                 </button>
               </div>
@@ -134,9 +166,13 @@
 
             <!-- Nominal voltage -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium mb-1">Nominal Voltage (V)</label>
-              <select id="voltage"
-                      class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm">
+              <label class="block text-xs sm:text-sm font-medium mb-1"
+                >Nominal Voltage (V)</label
+              >
+              <select
+                id="voltage"
+                class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm"
+              >
                 <optgroup label="Single-phase LV">
                   <option data-phase="1" value="120">120</option>
                   <option data-phase="1" value="230">230</option>
@@ -163,10 +199,15 @@
 
             <!-- Application type -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium mb-1">Application Type</label>
-              <select id="app-type"
-                      class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm">
-                <option value="motor">Motor / MCC</option>
+              <label class="block text-xs sm:text-sm font-medium mb-1"
+                >Application Type</label
+              >
+              <select
+                id="app-type"
+                class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm"
+              >
+                <option value="motor">Motor Branch Circuit</option>
+                <option value="mcc">MCC Feeder / Motor Group</option>
                 <option value="general">General Branch Load</option>
                 <option value="feeder">Feeder / Panel / Switchboard</option>
                 <option value="transformer">Transformer Secondary</option>
@@ -180,17 +221,27 @@
             <!-- Continuous / design margin -->
             <div class="grid grid-cols-2 gap-3 mt-1">
               <div>
-                <label class="block text-[11px] sm:text-xs font-medium mb-1">Continuous?</label>
-                <select id="continuous"
-                        class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-xs sm:text-sm">
+                <label
+                  class="block text-[11px] sm:text-xs font-medium mb-1"
+                  >Continuous?</label
+                >
+                <select
+                  id="continuous"
+                  class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-xs sm:text-sm"
+                >
                   <option value="yes">Yes (≥ 3 h)</option>
                   <option value="no">No</option>
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] sm:text-xs font-medium mb-1">Design Margin</label>
-                <select id="design-margin"
-                        class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-xs sm:text-sm">
+                <label
+                  class="block text-[11px] sm:text-xs font-medium mb-1"
+                  >Design Margin</label
+                >
+                <select
+                  id="design-margin"
+                  class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-xs sm:text-sm"
+                >
                   <option value="1.0">None</option>
                   <option value="1.1">+10%</option>
                   <option value="1.25">+25%</option>
@@ -203,20 +254,28 @@
           <div id="input-section-condvd" class="hidden space-y-3">
             <!-- Conductor / environment -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium mb-1">Conductor &amp; Environment</label>
+              <label class="block text-xs sm:text-sm font-medium mb-1"
+                >Conductor &amp; Environment</label
+              >
               <div class="grid grid-cols-2 gap-3 mb-2">
                 <div>
                   <label class="block text-[11px] mb-1">Material</label>
-                  <select id="cond-material"
-                          class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm">
+                  <select
+                    id="cond-material"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm"
+                  >
                     <option value="cu">Copper</option>
                     <option value="al">Aluminum</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-[11px] mb-1">Insulation Rating</label>
-                  <select id="insulation"
-                          class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm">
+                  <label class="block text-[11px] mb-1"
+                    >Insulation Rating</label
+                  >
+                  <select
+                    id="insulation"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm"
+                  >
                     <option value="60">60°C</option>
                     <option value="75" selected>75°C</option>
                     <option value="90">90°C</option>
@@ -226,70 +285,124 @@
               <div class="grid grid-cols-2 gap-3 mb-2">
                 <div>
                   <label class="block text-[11px] mb-1">Derating Factor</label>
-                  <input type="number" id="derate-factor" value=""
-                         min="0.2" max="1" step="0.01"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <input
+                    type="number"
+                    id="derate-factor"
+                    value=""
+                    min="0.2"
+                    max="1"
+                    step="0.01"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
                 <div>
                   <label class="block text-[11px] mb-1">Fault Level (kA)</label>
-                  <input type="number" id="fault-level" value="25"
-                         min="5" step="1"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <input
+                    type="number"
+                    id="fault-level"
+                    value="25"
+                    min="5"
+                    step="1"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[11px] mb-1">Current-carrying conductors</label>
-                  <input type="number" id="cond-count" value="3"
-                         min="1" step="1"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <label class="block text-[11px] mb-1"
+                    >Current-carrying conductors</label
+                  >
+                  <input
+                    type="number"
+                    id="cond-count"
+                    value="3"
+                    min="1"
+                    step="1"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
                 <div>
                   <label class="block text-[11px] mb-1">Ambient (°C)</label>
-                  <input type="number" id="ambient-c" value="30"
-                         min="-20" max="60" step="1"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <input
+                    type="number"
+                    id="ambient-c"
+                    value="30"
+                    min="-20"
+                    max="60"
+                    step="1"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
               </div>
             </div>
 
             <!-- Voltage drop inputs -->
             <div class="border-t border-white/25 pt-3">
-              <label class="block text-xs sm:text-sm font-medium mb-1 flex items-center">
-                <i class="fas fa-arrow-down mr-2 text-sky-100"></i> Voltage Drop (Optional)
+              <label
+                class="block text-xs sm:text-sm font-medium mb-1 flex items-center"
+              >
+                <i class="fas fa-arrow-down mr-2 text-sky-100"></i> Voltage Drop
+                (Optional)
               </label>
               <div class="grid grid-cols-2 gap-3 mb-2">
                 <div>
                   <label class="block text-[11px] mb-1">Max VD (%)</label>
-                  <input type="number" id="vd-max-pct" value="3"
-                         min="1" max="10" step="0.1"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <input
+                    type="number"
+                    id="vd-max-pct"
+                    value="3"
+                    min="1"
+                    max="10"
+                    step="0.1"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
                 <div>
-                  <label class="block text-[11px] mb-1">Parallel Conductors</label>
-                  <input type="number" id="vd-parallel" value="1"
-                         min="1" max="25" step="1"
-                         class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                  <label class="block text-[11px] mb-1"
+                    >Parallel Conductors</label
+                  >
+                  <input
+                    type="number"
+                    id="vd-parallel"
+                    value="1"
+                    min="1"
+                    max="25"
+                    step="1"
+                    class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                  />
                 </div>
               </div>
               <div>
-                <label class="block text-[11px] mb-1">One-way Distance (ft)</label>
-                <input type="number" id="vd-distance" value="0"
-                       min="0" max="5000" step="1"
-                       class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+                <label class="block text-[11px] mb-1"
+                  >One-way Distance (ft)</label
+                >
+                <input
+                  type="number"
+                  id="vd-distance"
+                  value="0"
+                  min="0"
+                  max="5000"
+                  step="1"
+                  class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                />
               </div>
             </div>
           </div>
 
           <!-- Actions -->
           <div class="mt-4 space-y-2">
-            <button id="btn-calc"
-                    class="w-full bg-emerald-500 hover:bg-emerald-400 text-white text-sm py-2.5 rounded-lg shadow-md hover:shadow-lg transition flex items-center justify-center">
+            <button
+              id="btn-calc"
+              class="w-full bg-emerald-500 hover:bg-emerald-400 text-white text-sm py-2.5 rounded-lg shadow-md hover:shadow-lg transition flex items-center justify-center"
+            >
               <i class="fas fa-calculator mr-2"></i> Calculate NEC Sizing
             </button>
-            <button id="btn-reset"
-                    class="w-full bg-slate-900/40 hover:bg-slate-900/60 text-sky-50 text-xs sm:text-sm py-2 rounded-lg border border-sky-200/40 transition flex items-center justify-center">
-              <i class="fas fa-rotate-left mr-2"></i> Reset Inputs &amp; Results
+            <button
+              id="btn-reset"
+              class="w-full bg-slate-900/40 hover:bg-slate-900/60 text-sky-50 text-xs sm:text-sm py-2 rounded-lg border border-sky-200/40 transition flex items-center justify-center"
+            >
+              <i class="fas fa-rotate-left mr-2"></i> Reset Inputs &amp;
+              Results
             </button>
           </div>
         </aside>
@@ -298,38 +411,56 @@
         <section class="lg:w-2/3 bg-white rounded-xl shadow-lg overflow-hidden">
           <!-- Tabs -->
           <div class="border-b border-gray-200 overflow-x-auto">
-            <nav class="-mb-px flex space-x-6 px-4 sm:px-6 text-xs sm:text-sm">
-              <button id="tab-summary"
-                      class="tab-active whitespace-nowrap py-3 px-1 border-b-2 font-medium">
+            <nav
+              class="-mb-px flex space-x-6 px-4 sm:px-6 text-xs sm:text-sm"
+            >
+              <button
+                id="tab-summary"
+                class="tab-active whitespace-nowrap py-3 px-1 border-b-2 font-medium"
+              >
                 <i class="fas fa-list-ul mr-1"></i> Summary
               </button>
-              <button id="tab-devices"
-                      class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+              <button
+                id="tab-devices"
+                class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              >
                 <i class="fas fa-bolt mr-1"></i> Devices
               </button>
-              <button id="tab-conductors"
-                      class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+              <button
+                id="tab-conductors"
+                class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              >
                 <i class="fas fa-stream mr-1"></i> Conductors
               </button>
-              <button id="tab-motor"
-                      class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+              <button
+                id="tab-motor"
+                class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              >
                 <i class="fas fa-fan mr-1"></i> Motor Rules
               </button>
-              <button id="tab-vdrop"
-                      class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+              <button
+                id="tab-vdrop"
+                class="whitespace-nowrap py-3 px-1 border-b-2 font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              >
                 <i class="fas fa-arrow-down mr-1"></i> Voltage Drop
               </button>
             </nav>
           </div>
 
           <!-- Error box -->
-          <div id="error-box" class="hidden bg-red-50 border-l-4 border-red-500 p-3 sm:p-4 m-3 sm:m-4">
+          <div
+            id="error-box"
+            class="hidden bg-red-50 border-l-4 border-red-500 p-3 sm:p-4 m-3 sm:m-4"
+          >
             <div class="flex">
               <div class="flex-shrink-0">
                 <i class="fas fa-exclamation-circle text-red-500"></i>
               </div>
               <div class="ml-3">
-                <h3 class="text-xs sm:text-sm font-medium text-red-800" id="error-msg"></h3>
+                <h3
+                  class="text-xs sm:text-sm font-medium text-red-800"
+                  id="error-msg"
+                ></h3>
               </div>
             </div>
           </div>
@@ -338,53 +469,114 @@
           <div class="p-4 sm:p-6 space-y-6">
             <!-- SUMMARY TAB -->
             <div id="content-summary">
-              <div class="flex items-center justify-between flex-wrap gap-1 mb-3">
-                <h2 class="text-base sm:text-lg font-semibold text-gray-800 flex items-center">
+              <div
+                class="flex items-center justify-between flex-wrap gap-1 mb-3"
+              >
+                <h2
+                  class="text-base sm:text-lg font-semibold text-gray-800 flex items-center"
+                >
                   <i class="fas fa-chart-bar text-sky-500 mr-2"></i>
-                  Sizing Summary<span id="sum-device-label" class="ml-1 text-sm text-gray-500"></span>
+                  Sizing Summary<span
+                    id="sum-device-label"
+                    class="ml-1 text-sm text-gray-500"
+                  ></span>
                 </h2>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <p class="text-xs sm:text-sm font-medium text-gray-500">
+              <div
+                class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4"
+              >
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <p
+                    class="text-xs sm:text-sm font-medium text-gray-500"
+                  >
                     Load Current (I<sub>load</sub>)
                   </p>
-                  <p id="sum-load-current" class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1">0.00 A</p>
+                  <p
+                    id="sum-load-current"
+                    class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1"
+                  >
+                    0.00 A
+                  </p>
                 </div>
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <p class="text-xs sm:text-sm font-medium text-gray-500">
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <p
+                    class="text-xs sm:text-sm font-medium text-gray-500"
+                  >
                     Minimum Circuit Ampacity (MCA)
                   </p>
-                  <p id="sum-mca" class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1">0.00 A</p>
+                  <p
+                    id="sum-mca"
+                    class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1"
+                  >
+                    0.00 A
+                  </p>
                 </div>
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <p class="text-xs sm:text-sm font-medium text-gray-500">
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <p
+                    class="text-xs sm:text-sm font-medium text-gray-500"
+                  >
                     Selected Breaker
                   </p>
-                  <p id="sum-breaker" class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1">—</p>
+                  <p
+                    id="sum-breaker"
+                    class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1"
+                  >
+                    —
+                  </p>
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-5">
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <p class="text-xs sm:text-sm font-medium text-gray-500">
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-5"
+              >
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <p
+                    class="text-xs sm:text-sm font-medium text-gray-500"
+                  >
                     Selected Conductor
                   </p>
-                  <p id="sum-conductor" class="text-lg sm:text-xl font-semibold text-gray-900 mt-1">—</p>
+                  <p
+                    id="sum-conductor"
+                    class="text-lg sm:text-xl font-semibold text-gray-900 mt-1"
+                  >
+                    —
+                  </p>
                 </div>
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <p class="text-xs sm:text-sm font-medium text-gray-500">Notes</p>
-                  <ul id="sum-notes"
-                      class="mt-2 text-xs text-gray-600 list-disc list-inside space-y-1">
-                    <li>Run calculation to see NEC-based suggestions.</li>
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <p
+                    class="text-xs sm:text-sm font-medium text-gray-500"
+                  >
+                    Notes
+                  </p>
+                  <ul
+                    id="sum-notes"
+                    class="mt-2 text-xs text-gray-600 list-disc list-inside space-y-1"
+                  >
+                    <li>
+                      Run calculation to see NEC-based suggestions.
+                    </li>
                   </ul>
                 </div>
               </div>
 
               <!-- Summary chart -->
-              <div class="mt-5 bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-3 flex items-center">
+              <div
+                class="mt-5 bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+              >
+                <h3
+                  class="text-xs sm:text-sm font-semibold text-gray-700 mb-3 flex items-center"
+                >
                   <i class="fas fa-chart-column text-sky-500 mr-2"></i>
                   Current &amp; Ampacity Comparison
                 </h3>
@@ -396,14 +588,27 @@
 
             <!-- DEVICES TAB -->
             <div id="content-devices" class="hidden">
-              <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                <i class="fas fa-bolt text-sky-500 mr-2"></i> Breakers • Fuses • Overloads
+              <h2
+                class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center"
+              >
+                <i class="fas fa-bolt text-sky-500 mr-2"></i> Breakers • Fuses
+                • Overloads
               </h2>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Breaker / Fuse</h3>
-                  <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
+              >
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Breaker / Fuse
+                  </h3>
+                  <dl
+                    class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                  >
                     <div class="flex justify-between">
                       <dt>Suggested Breaker:</dt>
                       <dd id="dev-breaker" class="font-semibold">—</dd>
@@ -414,25 +619,48 @@
                     </div>
                     <div class="flex justify-between">
                       <dt>Device Factor:</dt>
-                      <dd id="dev-device-factor" class="font-mono text-[11px] sm:text-xs">—</dd>
+                      <dd
+                        id="dev-device-factor"
+                        class="font-mono text-[11px] sm:text-xs"
+                      >
+                        —
+                      </dd>
                     </div>
                     <div class="flex justify-between">
                       <dt>Interrupting / Duty Check:</dt>
-                      <dd id="dev-ic-rating" class="font-mono text-[11px] sm:text-xs">—</dd>
+                      <dd
+                        id="dev-ic-rating"
+                        class="font-mono text-[11px] sm:text-xs"
+                      >
+                        —
+                      </dd>
                     </div>
                   </dl>
                 </div>
 
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Overload Protection (Motors)</h3>
-                  <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Overload Protection (Motors)
+                  </h3>
+                  <dl
+                    class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                  >
                     <div class="flex justify-between">
                       <dt>Overload Setting:</dt>
                       <dd id="dev-ol-setting" class="font-semibold">—</dd>
                     </div>
                     <div class="flex justify-between">
                       <dt>OL Factor:</dt>
-                      <dd id="dev-ol-factor" class="font-mono text-[11px] sm:text-xs">—</dd>
+                      <dd
+                        id="dev-ol-factor"
+                        class="font-mono text-[11px] sm:text-xs"
+                      >
+                        —
+                      </dd>
                     </div>
                   </dl>
                 </div>
@@ -441,13 +669,24 @@
 
             <!-- CONDUCTORS TAB -->
             <div id="content-conductors" class="hidden">
-              <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                <i class="fas fa-stream text-sky-500 mr-2"></i> Conductor Selection
+              <h2
+                class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center"
+              >
+                <i class="fas fa-stream text-sky-500 mr-2"></i> Conductor
+                Selection
               </h2>
 
-              <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4 mb-4">
-                <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Chosen Conductors</h3>
-                <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+              <div
+                class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4 mb-4"
+              >
+                <h3
+                  class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                >
+                  Chosen Conductors
+                </h3>
+                <dl
+                  class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                >
                   <div class="flex justify-between">
                     <dt>Phase Conductor:</dt>
                     <dd id="cond-phase" class="font-semibold">—</dd>
@@ -464,29 +703,50 @@
                   </div>
                   <div class="flex justify-between">
                     <dt>Derated Ampacity:</dt>
-                    <dd id="cond-derated-amp" class="font-mono text-[11px] sm:text-xs">—</dd>
+                    <dd
+                      id="cond-derated-amp"
+                      class="font-mono text-[11px] sm:text-xs"
+                    >
+                      —
+                    </dd>
                   </div>
                 </dl>
               </div>
 
               <div>
-                <button id="btn-download-csv"
-                        class="inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 shadow-sm text-xs sm:text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                  <i class="fas fa-download mr-2"></i> Export Sizing Snapshot (CSV)
+                <button
+                  id="btn-download-csv"
+                  class="inline-flex items-center px-3 sm:px-4 py-2 border border-gray-300 shadow-sm text-xs sm:text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <i class="fas fa-download mr-2"></i> Export Sizing Snapshot
+                  (CSV)
                 </button>
               </div>
             </div>
 
             <!-- MOTOR RULES TAB -->
             <div id="content-motor" class="hidden">
-              <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                <i class="fas fa-fan text-sky-500 mr-2"></i> Motor-Specific Calculations
+              <h2
+                class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center"
+              >
+                <i class="fas fa-fan text-sky-500 mr-2"></i> Motor-Specific
+                Calculations
               </h2>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Motor Current Basis</h3>
-                  <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
+              >
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Motor Current Basis
+                  </h3>
+                  <dl
+                    class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                  >
                     <div class="flex justify-between">
                       <dt>Motor FLC Used:</dt>
                       <dd id="motor-flc" class="font-semibold">—</dd>
@@ -497,17 +757,37 @@
                     </div>
                     <div class="flex justify-between">
                       <dt>SCGF Device (% of FLC):</dt>
-                      <dd id="motor-sccr" class="font-mono text-[11px] sm:text-xs">—</dd>
+                      <dd
+                        id="motor-sccr"
+                        class="font-mono text-[11px] sm:text-xs"
+                      >
+                        —
+                      </dd>
                     </div>
                   </dl>
                 </div>
 
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Quick Motor Notes</h3>
-                  <ul id="motor-notes"
-                      class="mt-2 text-xs text-gray-600 list-disc list-inside space-y-1">
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Quick Motor Notes
+                  </h3>
+                  <ul
+                    id="motor-notes"
+                    class="mt-2 text-xs text-gray-600 list-disc list-inside space-y-1"
+                  >
                     <li>Use NEC 430 tables for FLC where possible.</li>
-                    <li>Conductors ≥ 125% FLC; breakers/fuses may be higher (430.52 style).</li>
+                    <li>
+                      Motor branch conductors ≥ 125% FLC; breakers/fuses may be
+                      higher per 430.52.
+                    </li>
+                    <li>
+                      Use MCC feeder option for motor groups (largest motor +
+                      others).
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -515,14 +795,27 @@
 
             <!-- VOLTAGE DROP TAB -->
             <div id="content-vdrop" class="hidden">
-              <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                <i class="fas fa-arrow-down text-sky-500 mr-2"></i> Voltage Drop Check
+              <h2
+                class="text-base sm:text-lg font-semibold text-gray-800 mb-3 flex items-center"
+              >
+                <i class="fas fa-arrow-down text-sky-500 mr-2"></i> Voltage Drop
+                Check
               </h2>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Voltage Levels</h3>
-                  <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"
+              >
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Voltage Levels
+                  </h3>
+                  <dl
+                    class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                  >
                     <div class="flex justify-between">
                       <dt>Nominal Voltage:</dt>
                       <dd id="vd-nominal" class="font-semibold">—</dd>
@@ -542,9 +835,17 @@
                   </dl>
                 </div>
 
-                <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
-                  <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Distance &amp; Conductor Check</h3>
-                  <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
+                <div
+                  class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4"
+                >
+                  <h3
+                    class="text-xs sm:text-sm font-semibold text-gray-700 mb-2"
+                  >
+                    Distance &amp; Conductor Check
+                  </h3>
+                  <dl
+                    class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1"
+                  >
                     <div class="flex justify-between">
                       <dt>Conductor Used:</dt>
                       <dd id="vd-conductor" class="font-semibold">—</dd>
@@ -565,7 +866,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </section>
       </div>
@@ -573,9 +873,14 @@
 
     <!-- Footer -->
     <footer class="mt-2 text-center text-[11px] text-slate-300 pb-6">
-      <div>Built by Solomon Ofori Manu. <span class="font-semibold">OFORI E-sizing</span>™ — NEC-oriented LV/MV/HV sizing aid.</div>
+      <div>
+        Built by Solomon Ofori Manu.
+        <span class="font-semibold">OFORI E-sizing</span>™ — NEC-oriented
+        LV/MV/HV sizing aid.
+      </div>
       <div class="mt-1">
-        Always verify against the latest NEC and AHJ requirements for final design and coordination.
+        Always verify against the latest NEC and AHJ requirements for final
+        design and coordination.
       </div>
     </footer>
   </div>
@@ -586,124 +891,124 @@
     // Voltage classes (tool thresholds)
     // LV: up to 600 V, MV: >600 V up to 15 kV, HV: >15 kV (e.g., 23 kV, 34.5 kV)
     const getVoltageClass = (V) => {
-      if (V <= 600) return 'LV';
-      if (V <= 15000) return 'MV';
-      return 'HV';
+      if (V <= 600) return "LV";
+      if (V <= 15000) return "MV";
+      return "HV";
     };
 
     // Allowed standard voltages (used when enforcing NEC motor FLC table usage)
     const ALLOWED_VOLTAGES = [
-      120, 208, 230, 240, 277, 347, 380, 400, 415, 440, 480, 600,
-      1000, 2400, 4160, 4800, 12470, 13200, 13800, 23000, 34500
+      120, 208, 230, 240, 277, 347, 380, 400, 415, 440, 480, 600, 1000, 2400,
+      4160, 4800, 12470, 13200, 13800, 23000, 34500,
     ];
 
     // Breaker tables by voltage class (A)
+    // LV list includes 6000A to avoid undersizing for large switchboards / gear
+    // MV/HV lists include intermediate ratings for tighter sizing steps
     const BREAKER_TABLES = {
       LV: [
-        15, 20, 25, 30, 35, 40, 45, 50, 60, 70,
-        80, 90, 100, 110, 125, 150, 175, 200,
-        225, 250, 300, 350, 400, 450, 500, 600,
-        800, 1000, 1200, 1600, 2000, 2500, 3000,
-        3500, 4000, 5000, 6000
+        15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175,
+        200, 225, 250, 300, 350, 400, 450, 500, 600, 800, 1000, 1200, 1600,
+        2000, 2500, 3000, 3500, 4000, 5000, 6000,
       ],
       MV: [
-        600, 800, 1200, 2000, 2500, 3000
+        400, 600, 800, 1000, 1200, 1600, 2000, 2500, 3000, 3500, 4000, 5000,
       ],
-      HV: [
-        600, 1200, 2000, 2500, 3000
-      ]
+      HV: [400, 600, 800, 1000, 1200, 1600, 2000, 2500, 3000, 3500, 4000],
     };
 
     // LV/MV/HV conductor tables (simplified ampacities, 75°C-ish, engineering aid only)
     const CONDUCTOR_TABLES = {
       LV: {
         cu: [
-          { size: '14 AWG Cu', amp: 20,  r: 2.53 },
-          { size: '12 AWG Cu', amp: 25,  r: 1.59 },
-          { size: '10 AWG Cu', amp: 35,  r: 0.999 },
-          { size: '8 AWG Cu',  amp: 50,  r: 0.628 },
-          { size: '6 AWG Cu',  amp: 65,  r: 0.395 },
-          { size: '4 AWG Cu',  amp: 85,  r: 0.248 },
-          { size: '3 AWG Cu',  amp: 100, r: 0.197 },
-          { size: '2 AWG Cu',  amp: 115, r: 0.156 },
-          { size: '1 AWG Cu',  amp: 130, r: 0.124 },
-          { size: '1/0 AWG Cu', amp: 150, r: 0.0983 },
-          { size: '2/0 AWG Cu', amp: 175, r: 0.0779 },
-          { size: '3/0 AWG Cu', amp: 200, r: 0.0618 },
-          { size: '4/0 AWG Cu', amp: 230, r: 0.0490 },
-          { size: '250 kcmil Cu', amp: 255, r: 0.0401 },
-          { size: '300 kcmil Cu', amp: 285, r: 0.0335 },
-          { size: '350 kcmil Cu', amp: 310, r: 0.0286 },
-          { size: '400 kcmil Cu', amp: 335, r: 0.0252 },
-          { size: '500 kcmil Cu', amp: 380, r: 0.0200 }
+          { size: "14 AWG Cu", amp: 20, r: 2.53 },
+          { size: "12 AWG Cu", amp: 25, r: 1.59 },
+          { size: "10 AWG Cu", amp: 35, r: 0.999 },
+          { size: "8 AWG Cu", amp: 50, r: 0.628 },
+          { size: "6 AWG Cu", amp: 65, r: 0.395 },
+          { size: "4 AWG Cu", amp: 85, r: 0.248 },
+          { size: "3 AWG Cu", amp: 100, r: 0.197 },
+          { size: "2 AWG Cu", amp: 115, r: 0.156 },
+          { size: "1 AWG Cu", amp: 130, r: 0.124 },
+          { size: "1/0 AWG Cu", amp: 150, r: 0.0983 },
+          { size: "2/0 AWG Cu", amp: 175, r: 0.0779 },
+          { size: "3/0 AWG Cu", amp: 200, r: 0.0618 },
+          { size: "4/0 AWG Cu", amp: 230, r: 0.049 },
+          { size: "250 kcmil Cu", amp: 255, r: 0.0401 },
+          { size: "300 kcmil Cu", amp: 285, r: 0.0335 },
+          { size: "350 kcmil Cu", amp: 310, r: 0.0286 },
+          { size: "400 kcmil Cu", amp: 335, r: 0.0252 },
+          { size: "500 kcmil Cu", amp: 380, r: 0.02 },
         ],
         al: [
-          { size: '8 AWG Al',  amp: 40,  r: 1.00 },
-          { size: '6 AWG Al',  amp: 50,  r: 0.63 },
-          { size: '4 AWG Al',  amp: 65,  r: 0.40 },
-          { size: '2 AWG Al',  amp: 90,  r: 0.25 },
-          { size: '1/0 AWG Al', amp: 120, r: 0.20 },
-          { size: '2/0 AWG Al', amp: 135, r: 0.16 },
-          { size: '3/0 AWG Al', amp: 155, r: 0.125 },
-          { size: '4/0 AWG Al', amp: 180, r: 0.098 },
-          { size: '250 kcmil Al', amp: 205, r: 0.082 },
-          { size: '300 kcmil Al', amp: 230, r: 0.068 },
-          { size: '350 kcmil Al', amp: 250, r: 0.058 },
-          { size: '400 kcmil Al', amp: 270, r: 0.051 },
-          { size: '500 kcmil Al', amp: 310, r: 0.050 }
-        ]
+          { size: "8 AWG Al", amp: 40, r: 1.0 },
+          { size: "6 AWG Al", amp: 50, r: 0.63 },
+          { size: "4 AWG Al", amp: 65, r: 0.4 },
+          { size: "2 AWG Al", amp: 90, r: 0.25 },
+          { size: "1/0 AWG Al", amp: 120, r: 0.2 },
+          { size: "2/0 AWG Al", amp: 135, r: 0.16 },
+          { size: "3/0 AWG Al", amp: 155, r: 0.125 },
+          { size: "4/0 AWG Al", amp: 180, r: 0.098 },
+          { size: "250 kcmil Al", amp: 205, r: 0.082 },
+          { size: "300 kcmil Al", amp: 230, r: 0.068 },
+          { size: "350 kcmil Al", amp: 250, r: 0.058 },
+          { size: "400 kcmil Al", amp: 270, r: 0.051 },
+          { size: "500 kcmil Al", amp: 310, r: 0.05 },
+        ],
       },
-      // For MV/HV we reuse simplified ampacities as an engineering check.
       MV: {},
-      HV: {}
+      HV: {},
     };
 
-    // Copy LV tables into MV/HV as baseline (user still checks NEC MV/HV tables for final)
+    // Reuse LV tables for MV/HV as a baseline engineering check.
     CONDUCTOR_TABLES.MV.cu = [...CONDUCTOR_TABLES.LV.cu];
     CONDUCTOR_TABLES.MV.al = [...CONDUCTOR_TABLES.LV.al];
     CONDUCTOR_TABLES.HV.cu = [...CONDUCTOR_TABLES.LV.cu];
     CONDUCTOR_TABLES.HV.al = [...CONDUCTOR_TABLES.LV.al];
 
     const EGC_TABLE = [
-      { maxBreaker: 60,  egc: '10 AWG Cu or 8 AWG Al (LV approx.)' },
-      { maxBreaker: 100, egc: '8 AWG Cu or 6 AWG Al' },
-      { maxBreaker: 200, egc: '6 AWG Cu or 4 AWG Al' },
-      { maxBreaker: 400, egc: '3 AWG Cu or 1 AWG Al' },
-      { maxBreaker: 600, egc: '1/0 AWG Cu or 3/0 AWG Al' }
+      { maxBreaker: 60, egc: "10 AWG Cu or 8 AWG Al (LV approx.)" },
+      { maxBreaker: 100, egc: "8 AWG Cu or 6 AWG Al" },
+      { maxBreaker: 200, egc: "6 AWG Cu or 4 AWG Al" },
+      { maxBreaker: 400, egc: "3 AWG Cu or 1 AWG Al" },
+      { maxBreaker: 600, egc: "1/0 AWG Cu or 3/0 AWG Al" },
     ];
 
     const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-    const show = el => el && el.classList && el.classList.remove('hidden');
-    const hide = el => el && el.classList && el.classList.add('hidden');
+    const show = (el) => el && el.classList && el.classList.remove("hidden");
+    const hide = (el) => el && el.classList && el.classList.add("hidden");
     const setText = (id, txt) => {
       const el = document.getElementById(id);
       if (el) el.textContent = txt;
     };
 
-    const showError = msg => {
-      const box = document.getElementById('error-box');
-      const m = document.getElementById('error-msg');
+    const showError = (msg) => {
+      const box = document.getElementById("error-box");
+      const m = document.getElementById("error-msg");
       if (m) m.textContent = msg;
       if (box) show(box);
       setTimeout(() => hide(box), 6000);
     };
 
     const updateVoltageOptions = (systemType) => {
-      const sel = document.getElementById('voltage');
+      const sel = document.getElementById("voltage");
       if (!sel) return;
       let firstVisible = null;
       for (const opt of Array.from(sel.options)) {
-        const p = opt.getAttribute('data-phase');
+        const p = opt.getAttribute("data-phase");
         if (!p) {
           opt.hidden = false;
           if (!firstVisible) firstVisible = opt;
           continue;
         }
-        if (systemType === 'single') opt.hidden = p !== '1';
-        else opt.hidden = p !== '3';
+        if (systemType === "single") opt.hidden = p !== "1";
+        else opt.hidden = p !== "3";
         if (!opt.hidden && !firstVisible) firstVisible = opt;
       }
-      if (sel.options[sel.selectedIndex] && sel.options[sel.selectedIndex].hidden) {
+      if (
+        sel.options[sel.selectedIndex] &&
+        sel.options[sel.selectedIndex].hidden
+      ) {
         if (firstVisible) sel.value = firstVisible.value;
       }
     };
@@ -714,18 +1019,19 @@
       for (const b of table) {
         if (b >= valA) return b;
       }
+      // If bigger than max in table, keep last (engineer must verify vs actual gear offerings)
       return table[table.length - 1];
     };
 
     const pickEGC = (breaker, V) => {
       const vClass = getVoltageClass(V);
-      if (vClass === 'MV' || vClass === 'HV') {
-        return 'EGC per NEC 250 medium-voltage / high-voltage rules (engineering check only).';
+      if (vClass === "MV" || vClass === "HV") {
+        return "EGC per NEC 250 medium-voltage / high-voltage rules (engineering check only).";
       }
       for (const e of EGC_TABLE) {
         if (breaker <= e.maxBreaker) return e.egc;
       }
-      return 'Check NEC 250.122 table for LV EGC sizing.';
+      return "Check NEC 250.122 table for LV EGC sizing.";
     };
 
     const pickConductor = (material, requiredAmp, derateFactor, V) => {
@@ -744,7 +1050,12 @@
       return { ...last, derated: last.amp * factor };
     };
 
-    const computeDerateAutomatic = ({ conductorCount = 3, ambientC = 30, insulation = 75 }) => {
+    const computeDerateAutomatic = ({
+      conductorCount = 3,
+      ambientC = 30,
+      insulation = 75,
+    }) => {
+      // Very short, NEC-style derating approximation
       let ccFactor = 1.0;
       if (conductorCount <= 3) ccFactor = 1.0;
       else if (conductorCount <= 6) ccFactor = 0.8;
@@ -773,7 +1084,7 @@
       motor: () => `
         <div class="space-y-3">
           <h3 class="text-xs sm:text-sm font-semibold mb-1 flex items-center">
-            <i class="fas fa-fan mr-2"></i> Motor / MCC
+            <i class="fas fa-fan mr-2"></i> Motor Branch Circuit
           </h3>
 
           <div>
@@ -822,6 +1133,49 @@
           </div>
         </div>
       `,
+      // MCC feeder: NEC-style largest motor + other motors + other loads
+      mcc: () => `
+        <div class="space-y-3">
+          <h3 class="text-xs sm:text-sm font-semibold mb-1 flex items-center">
+            <i class="fas fa-sitemap mr-2"></i> MCC Feeder / Motor Group
+          </h3>
+
+          <div>
+            <label class="block text-xs sm:text-sm font-medium mb-1">Largest Motor FLC (A)</label>
+            <input type="number" id="mcc-largest-flc" min="0" step="0.1"
+                   class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm"
+                   placeholder="Largest motor running from MCC" />
+          </div>
+
+          <div>
+            <label class="block text-xs sm:text-sm font-medium mb-1">Sum of Other Motor FLCs (A)</label>
+            <input type="number" id="mcc-other-flc" min="0" step="0.1"
+                   class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm"
+                   placeholder="Sum of remaining motors" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] mb-1">Other Continuous Loads (A)</label>
+              <input type="number" id="mcc-other-cont" min="0" step="0.1"
+                     class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                     placeholder="Lighting, etc." />
+            </div>
+            <div>
+              <label class="block text-[11px] mb-1">Other Non-Cont. Loads (A)</label>
+              <input type="number" id="mcc-other-noncont" min="0" step="0.1"
+                     class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500"
+                     placeholder="Short-duration loads" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] mb-1">Overall Demand Factor</label>
+            <input type="number" id="mcc-demand" min="0.1" max="1.5" step="0.05" value="1.0"
+                   class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
+          </div>
+        </div>
+      `,
       general: () => `
         <div class="space-y-3">
           <h3 class="text-xs sm:text-sm font-semibold mb-1 flex items-center">
@@ -860,7 +1214,7 @@
             <label class="block text-xs sm:text-sm font-medium mb-1">Feeder Load (A)</label>
             <input type="number" id="feeder-current" min="0" step="0.1"
                    class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm"
-                   placeholder="Calculated load" />
+                   placeholder="Calculated load (bus / main)" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
@@ -939,33 +1293,35 @@
                    placeholder="If known, overrides kW-based estimate" />
           </div>
         </div>
-      `
+      `,
     };
 
     const refreshLoadInputs = () => {
-      const appType = document.getElementById('app-type').value;
-      const div = document.getElementById('load-inputs');
+      const appType = document.getElementById("app-type").value;
+      const div = document.getElementById("load-inputs");
       div.innerHTML = loadTemplates[appType]();
-      try { attachMotorHPHandlers(); } catch (e) {}
+      try {
+        attachMotorHPHandlers();
+      } catch (e) {}
     };
 
     const attachMotorHPHandlers = () => {
-      const hpEl = document.getElementById('motor-hp');
-      const flcEl = document.getElementById('motor-flc-input');
+      const hpEl = document.getElementById("motor-hp");
+      const flcEl = document.getElementById("motor-flc-input");
       if (!hpEl || !flcEl) return;
-      if (hpEl.dataset.autofill === '1') return;
-      hpEl.dataset.autofill = '1';
+      if (hpEl.dataset.autofill === "1") return;
+      hpEl.dataset.autofill = "1";
 
       const onChange = () => {
         const hp = parseFloat(hpEl.value) || 0;
         if (!hp) return;
-        const V = parseFloat(document.getElementById('voltage').value) || 480;
-        const systemType = window._systemType || 'single';
+        const V = parseFloat(document.getElementById("voltage").value) || 480;
+        const systemType = window._systemType || "single";
         const pf = 0.8;
         const eff = 0.9;
         const P_W = hp * 746;
         let flc = 0;
-        if (systemType === 'three') {
+        if (systemType === "three") {
           flc = P_W / (Math.sqrt(3) * V * pf * eff);
         } else {
           flc = P_W / (V * pf * eff);
@@ -975,46 +1331,49 @@
         }
       };
 
-      hpEl.addEventListener('input', onChange);
-      const vEl = document.getElementById('voltage');
-      if (vEl) vEl.addEventListener('change', onChange);
-      flcEl.addEventListener('input', () => {
-        if (flcEl.value && flcEl.value.toString().trim() !== '') flcEl.dataset.userEntered = '1';
+      hpEl.addEventListener("input", onChange);
+      const vEl = document.getElementById("voltage");
+      if (vEl) vEl.addEventListener("change", onChange);
+      flcEl.addEventListener("input", () => {
+        if (flcEl.value && flcEl.value.toString().trim() !== "")
+          flcEl.dataset.userEntered = "1";
         else delete flcEl.dataset.userEntered;
       });
 
-      const btnS = document.getElementById('btn-single');
-      const btnT = document.getElementById('btn-three');
-      if (btnS && btnS.dataset.vlistener !== '1') {
-        btnS.dataset.vlistener = '1';
-        btnS.addEventListener('click', onChange);
+      const btnS = document.getElementById("btn-single");
+      const btnT = document.getElementById("btn-three");
+      if (btnS && btnS.dataset.vlistener !== "1") {
+        btnS.dataset.vlistener = "1";
+        btnS.addEventListener("click", onChange);
       }
-      if (btnT && btnT.dataset.vlistener !== '1') {
-        btnT.dataset.vlistener = '1';
-        btnT.addEventListener('click', onChange);
+      if (btnT && btnT.dataset.vlistener !== "1") {
+        btnT.dataset.vlistener = "1";
+        btnT.addEventListener("click", onChange);
       }
     };
 
     // ------------------ CORE CALCULATIONS ------------------
 
     const calculateLoadCurrent = () => {
-      const systemType = window._systemType || 'single';
-      const V = parseFloat(document.getElementById('voltage').value) || 480;
-      const appType = document.getElementById('app-type').value;
+      const systemType = window._systemType || "single";
+      const V = parseFloat(document.getElementById("voltage").value) || 480;
+      const appType = document.getElementById("app-type").value;
 
       let Iload = 0;
       let motorFLCUsed = null;
 
-      if (appType === 'motor') {
-        const flcInput = parseFloat(document.getElementById('motor-flc-input').value) || 0;
-        const useTable = (document.getElementById('motor-use-table').value === 'yes');
-        const hp = parseFloat(document.getElementById('motor-hp').value) || 0;
+      if (appType === "motor") {
+        const flcInput =
+          parseFloat(document.getElementById("motor-flc-input").value) || 0;
+        const useTable =
+          document.getElementById("motor-use-table").value === "yes";
+        const hp = parseFloat(document.getElementById("motor-hp").value) || 0;
 
-        const approxFromHP = hpVal => {
+        const approxFromHP = (hpVal) => {
           const pf = 0.8;
           const eff = 0.9;
           const P_W = hpVal * 746;
-          if (systemType === 'three') {
+          if (systemType === "three") {
             return P_W / (Math.sqrt(3) * V * pf * eff);
           } else {
             return P_W / (V * pf * eff);
@@ -1023,7 +1382,9 @@
 
         if (useTable) {
           if (!ALLOWED_VOLTAGES.includes(Math.round(V))) {
-            throw new Error('For NEC motor FLC tables, choose a standard voltage (e.g., 230, 460, 480, 4.16kV, 12.47kV).');
+            throw new Error(
+              "For NEC motor FLC tables, choose a standard voltage (e.g., 230, 460, 480, 4.16kV, 12.47kV)."
+            );
           }
           if (flcInput > 0) {
             Iload = flcInput;
@@ -1033,7 +1394,7 @@
             Iload = approx;
             motorFLCUsed = approx;
           } else {
-            throw new Error('Enter NEC FLC (A) or HP for motor.');
+            throw new Error("Enter NEC FLC (A) or HP for motor.");
           }
         } else {
           if (flcInput > 0) {
@@ -1044,57 +1405,114 @@
             Iload = approx;
             motorFLCUsed = approx;
           } else {
-            throw new Error('Enter motor FLC (A) or HP for motor.');
+            throw new Error("Enter motor FLC (A) or HP for motor.");
           }
         }
-      } else if (appType === 'general') {
-        const I = parseFloat(document.getElementById('gen-current').value) || 0;
-        const kW = parseFloat(document.getElementById('gen-kw').value) || 0;
-        const pf = clamp(parseFloat(document.getElementById('gen-pf').value) || 0.95, 0.1, 1.0);
+      } else if (appType === "mcc") {
+        // MCC feeder/group of motors:
+        // approx NEC 430.24: 125% largest motor + sum(others) + other loads
+        const largest =
+          parseFloat(document.getElementById("mcc-largest-flc").value) || 0;
+        const others =
+          parseFloat(document.getElementById("mcc-other-flc").value) || 0;
+        const otherCont =
+          parseFloat(document.getElementById("mcc-other-cont").value) || 0;
+        const otherNonCont =
+          parseFloat(document.getElementById("mcc-other-noncont").value) || 0;
+        const demand = clamp(
+          parseFloat(document.getElementById("mcc-demand").value) || 1.0,
+          0.1,
+          1.5
+        );
+
+        if (!largest && !others && !otherCont && !otherNonCont) {
+          throw new Error(
+            "Enter at least one motor / load value for MCC feeder."
+          );
+        }
+
+        const largest125 = largest * 1.25; // 125% largest motor
+        const motors = largest125 + others;
+        const contLoads = motors + otherCont;
+        Iload = contLoads + otherNonCont * demand;
+      } else if (appType === "general") {
+        const I =
+          parseFloat(document.getElementById("gen-current").value) || 0;
+        const kW = parseFloat(document.getElementById("gen-kw").value) || 0;
+        const pf = clamp(
+          parseFloat(document.getElementById("gen-pf").value) || 0.95,
+          0.1,
+          1.0
+        );
 
         if (I > 0) {
           Iload = I;
         } else if (kW > 0) {
-          if (systemType === 'three') {
+          if (systemType === "three") {
             Iload = (kW * 1000) / (Math.sqrt(3) * V * pf);
           } else {
             Iload = (kW * 1000) / (V * pf);
           }
         } else {
-          throw new Error('Provide load current or kW for general load.');
+          throw new Error("Provide load current or kW for general load.");
         }
-      } else if (appType === 'feeder') {
-        const I = parseFloat(document.getElementById('feeder-current').value) || 0;
-        if (!I) throw new Error('Enter feeder load in amps.');
-        const demand = clamp(parseFloat(document.getElementById('feeder-demand').value) || 1.0, 0.1, 1.0);
-        const spare = clamp(parseFloat(document.getElementById('feeder-spare').value) || 0, 0, 0.5);
+      } else if (appType === "feeder") {
+        const I =
+          parseFloat(document.getElementById("feeder-current").value) || 0;
+        if (!I) throw new Error("Enter feeder load in amps.");
+        const demand = clamp(
+          parseFloat(document.getElementById("feeder-demand").value) || 1.0,
+          0.1,
+          1.0
+        );
+        const spare = clamp(
+          parseFloat(document.getElementById("feeder-spare").value) || 0,
+          0,
+          0.5
+        );
         Iload = I * demand * (1 + spare);
-      } else if (appType === 'transformer') {
-        const kva = parseFloat(document.getElementById('xfmr-kva').value) || 0;
-        if (!kva) throw new Error('Enter transformer kVA.');
-        let Vsec = parseFloat(document.getElementById('xfmr-voltage').value);
+      } else if (appType === "transformer") {
+        const kva = parseFloat(document.getElementById("xfmr-kva").value) || 0;
+        if (!kva) throw new Error("Enter transformer kVA.");
+        let Vsec = parseFloat(
+          document.getElementById("xfmr-voltage").value
+        );
         if (!Vsec) Vsec = V;
-        if (systemType === 'three') {
+        if (systemType === "three") {
           Iload = (kva * 1000) / (Math.sqrt(3) * Vsec);
         } else {
           Iload = (kva * 1000) / Vsec;
         }
-      } else if (appType === 'generator') {
-        const I = parseFloat(document.getElementById('gen-set-current').value) || 0;
-        const kW = parseFloat(document.getElementById('gen-set-kw').value) || 0;
-        const pf = clamp(parseFloat(document.getElementById('gen-set-pf').value) || 0.8, 0.1, 1.0);
-        const loadFactor = clamp(parseFloat(document.getElementById('gen-set-load-factor').value) || 1.0, 0.1, 1.5);
+      } else if (appType === "generator") {
+        const I =
+          parseFloat(document.getElementById("gen-set-current").value) || 0;
+        const kW =
+          parseFloat(document.getElementById("gen-set-kw").value) || 0;
+        const pf = clamp(
+          parseFloat(document.getElementById("gen-set-pf").value) || 0.8,
+          0.1,
+          1.0
+        );
+        const loadFactor = clamp(
+          parseFloat(document.getElementById("gen-set-load-factor").value) ||
+            1.0,
+          0.1,
+          1.5
+        );
 
         if (I > 0) {
           Iload = I;
         } else if (kW > 0) {
-          if (systemType === 'three') {
-            Iload = (kW * 1000 * loadFactor) / (Math.sqrt(3) * V * pf);
+          if (systemType === "three") {
+            Iload =
+              ((kW * 1000 * loadFactor) / (Math.sqrt(3) * V * pf));
           } else {
-            Iload = (kW * 1000 * loadFactor) / (V * pf);
+            Iload = ((kW * 1000 * loadFactor) / (V * pf));
           }
         } else {
-          throw new Error('Provide generator current or kW for generator sizing.');
+          throw new Error(
+            "Provide generator current or kW for generator sizing."
+          );
         }
       }
 
@@ -1103,19 +1521,29 @@
 
     // NEC-style MCA logic:
     // - Motors: MCA ≈ 125% × FLC × design margin (430.22).
-    // - Others: MCA ≈ Iload × (1.25 if continuous) × design margin.
+    // - MCC / Feeder / others: MCA ≈ Iload × (1.25 if continuous) × design margin.
     const applyMCAFactors = (appType, Iload, motorFLCUsed) => {
-      const margin = parseFloat(document.getElementById('design-margin').value) || 1.0;
-      const continuous = document.getElementById('continuous').value === 'yes';
+      const margin =
+        parseFloat(document.getElementById("design-margin").value) || 1.0;
+      const continuous =
+        document.getElementById("continuous").value === "yes";
 
-      if (appType === 'motor') {
+      if (appType === "motor") {
         const baseFLC = motorFLCUsed || Iload;
         const contFactor = 1.25; // 125% FLC
         const MCA = baseFLC * contFactor * margin;
-        return { MCA, contFactor, margin, continuous: true, baseUsed: baseFLC };
+        return {
+          MCA,
+          contFactor,
+          margin,
+          continuous: true,
+          baseUsed: baseFLC,
+        };
       }
 
-      const contFactor = continuous ? 1.25 : 1.0;
+      // Treat MCC feeders as continuous by nature of motor loading
+      const contFactor =
+        appType === "mcc" ? 1.25 : continuous ? 1.25 : 1.0;
       const MCA = Iload * contFactor * margin;
       return { MCA, contFactor, margin, continuous, baseUsed: Iload };
     };
@@ -1123,30 +1551,34 @@
     /**
      * sizeBreakerFuse
      * - Motors: base current = motor FLC, deviceFactor per 430.52-style multipliers.
-     * - Others: base current = MCA, deviceFactor = 1.0 (breaker ≥ MCA).
+     * - Others (MCC, feeders, etc.): base current = MCA, deviceFactor = 1.0 (breaker ≥ MCA).
      */
     const sizeBreakerFuse = (appType, MCA, Iload, motorFLCUsed, V) => {
       let deviceFactor;
       let olFactor = null;
       let baseCurrent;
 
-      if (appType === 'motor') {
-        const breakerType = document.getElementById('motor-breaker-type').value;
-        if (breakerType === 'inverse') {
-          deviceFactor = 2.5;        // ~250% FLC
-        } else if (breakerType === 'inst-trip') {
-          deviceFactor = 8.0;        // ~800% FLC
-        } else if (breakerType === 'time-delay-fuse') {
-          deviceFactor = 1.75;       // ~175% FLC
-        } else if (breakerType === 'nontime-fuse') {
-          deviceFactor = 3.0;        // ~300% FLC
+      if (appType === "motor") {
+        const breakerType =
+          document.getElementById("motor-breaker-type").value;
+        if (breakerType === "inverse") {
+          deviceFactor = 2.5; // ~250% FLC
+        } else if (breakerType === "inst-trip") {
+          deviceFactor = 8.0; // ~800% FLC
+        } else if (breakerType === "time-delay-fuse") {
+          deviceFactor = 1.75; // ~175% FLC
+        } else if (breakerType === "nontime-fuse") {
+          deviceFactor = 3.0; // ~300% FLC
         } else {
           deviceFactor = 2.0;
         }
-        const sf = parseFloat(document.getElementById('motor-sf').value) || 1.0;
+        const sf =
+          parseFloat(document.getElementById("motor-sf").value) || 1.0;
         olFactor = sf >= 1.15 ? 1.15 : 1.25;
         baseCurrent = motorFLCUsed || Iload;
       } else {
+        // For MCC, feeders, transformers, general loads and generators:
+        // size breaker/fuse ≥ MCA (deviceFactor ~ 100% of MCA)
         deviceFactor = 1.0;
         baseCurrent = MCA;
       }
@@ -1158,21 +1590,31 @@
     };
 
     const computeVoltageDrop = (Iload, conductor, systemType, V) => {
-      const distance = parseFloat(document.getElementById('vd-distance').value) || 0;
-      if (!conductor || !conductor.r || distance <= 0 || Iload <= 0) return null;
+      const distance =
+        parseFloat(document.getElementById("vd-distance").value) || 0;
+      if (!conductor || !conductor.r || distance <= 0 || Iload <= 0)
+        return null;
 
-      const maxPct = clamp(parseFloat(document.getElementById('vd-max-pct').value) || 3, 0.5, 15);
-      const parallels = Math.max(1, parseInt(document.getElementById('vd-parallel').value) || 1);
-      const k = (systemType === 'three') ? Math.sqrt(3) : 2.0;
+      const maxPct = clamp(
+        parseFloat(document.getElementById("vd-max-pct").value) || 3,
+        0.5,
+        15
+      );
+      const parallels = Math.max(
+        1,
+        parseInt(document.getElementById("vd-parallel").value) || 1
+      );
+      const k = systemType === "three" ? Math.sqrt(3) : 2.0;
 
       const Rper1000 = conductor.r;
-      const R_run = (Rper1000 / 1000) * distance * k / parallels;
+      const R_run = (Rper1000 / 1000) * distance * k * (1 / parallels);
       const Vdrop = Iload * R_run;
       const VdropPct = (Vdrop / V) * 100;
-      const VdropAllowed = V * maxPct / 100;
+      const VdropAllowed = (V * maxPct) / 100;
       const Vload = V - Vdrop;
 
-      const Lmax = VdropAllowed * 1000 * parallels / (Iload * Rper1000 * k);
+      const Lmax =
+        (VdropAllowed * 1000 * parallels) / (Iload * Rper1000 * k);
 
       return {
         V,
@@ -1182,7 +1624,7 @@
         VdropPct,
         VdropAllowed,
         Vload,
-        Lmax
+        Lmax,
       };
     };
 
@@ -1190,43 +1632,40 @@
 
     let summaryChartInstance = null;
     const buildSummaryChart = (Iload, MCA, deratedAmp, breakerSize) => {
-      const ctx = document.getElementById('summary-chart');
+      const ctx = document.getElementById("summary-chart");
       if (!ctx) return;
       if (summaryChartInstance) summaryChartInstance.destroy();
 
-      const labels = ['Load', 'MCA', 'Derated Ampacity', 'Breaker'];
-      const data = [
-        Iload || 0,
-        MCA || 0,
-        deratedAmp || 0,
-        breakerSize || 0
-      ];
+      const labels = ["Load", "MCA", "Derated Ampacity", "Breaker"];
+      const data = [Iload || 0, MCA || 0, deratedAmp || 0, breakerSize || 0];
 
       summaryChartInstance = new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels,
-          datasets: [{
-            label: 'Amps',
-            data,
-            borderWidth: 1
-          }]
+          datasets: [
+            {
+              label: "Amps",
+              data,
+              borderWidth: 1,
+            },
+          ],
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            y: { beginAtZero: true }
+            y: { beginAtZero: true },
           },
           plugins: {
             legend: { display: false },
             tooltip: {
               callbacks: {
-                label: ctx => `${ctx.raw.toFixed(2)} A`
-              }
-            }
-          }
-        }
+                label: (ctx) => `${ctx.raw.toFixed(2)} A`,
+              },
+            },
+          },
+        },
       });
     };
 
@@ -1234,141 +1673,233 @@
 
     const buildResults = () => {
       try {
-        hide(document.getElementById('error-box'));
+        hide(document.getElementById("error-box"));
 
-        const systemType = window._systemType || 'single';
-        const V = parseFloat(document.getElementById('voltage').value) || 480;
-        const appType = document.getElementById('app-type').value;
+        const systemType = window._systemType || "single";
+        const V = parseFloat(document.getElementById("voltage").value) || 480;
+        const appType = document.getElementById("app-type").value;
         const vClass = getVoltageClass(V);
 
-        const devName = (document.getElementById('device-name').value || '').trim();
-        setText('sum-device-label', devName ? '— ' + devName : '');
+        const devName =
+          (document.getElementById("device-name").value || "").trim();
+        setText("sum-device-label", devName ? "— " + devName : "");
 
-        const material = document.getElementById('cond-material').value || 'cu';
+        const material =
+          document.getElementById("cond-material").value || "cu";
 
         let derate;
-        const derateRaw = document.getElementById('derate-factor').value;
-        if (derateRaw !== '') {
-          derate = clamp(parseFloat(derateRaw) || 1.0, 0.2, 1.0);
+        const derateRaw = document.getElementById("derate-factor").value;
+        if (derateRaw !== "") {
+          derate = clamp(
+            parseFloat(derateRaw) || 1.0,
+            0.2,
+            1.0
+          );
         } else {
-          const condCount = parseInt(document.getElementById('cond-count').value) || 3;
-          const amb = parseFloat(document.getElementById('ambient-c').value) || 30;
-          const insulation = parseInt(document.getElementById('insulation').value) || 75;
-          derate = computeDerateAutomatic({ conductorCount: condCount, ambientC: amb, insulation }).derate;
+          const condCount =
+            parseInt(document.getElementById("cond-count").value) || 3;
+          const amb =
+            parseFloat(document.getElementById("ambient-c").value) || 30;
+          const insulation =
+            parseInt(document.getElementById("insulation").value) || 75;
+          derate = computeDerateAutomatic({
+            conductorCount: condCount,
+            ambientC: amb,
+            insulation,
+          }).derate;
         }
 
-        const faultLevel = parseFloat(document.getElementById('fault-level').value) || 25;
+        const faultLevel =
+          parseFloat(document.getElementById("fault-level").value) || 25;
 
         const { Iload, motorFLCUsed } = calculateLoadCurrent();
         const { MCA, contFactor, margin, continuous, baseUsed } =
           applyMCAFactors(appType, Iload, motorFLCUsed);
-        const { breakerSize, fuseSize, deviceFactor, olFactor, baseCurrent } =
-          sizeBreakerFuse(appType, MCA, Iload, motorFLCUsed, V);
+        const {
+          breakerSize,
+          fuseSize,
+          deviceFactor,
+          olFactor,
+          baseCurrent,
+        } = sizeBreakerFuse(appType, MCA, Iload, motorFLCUsed, V);
 
         const conductor = pickConductor(material, MCA, derate, V);
         const egc = pickEGC(breakerSize, V);
 
         // SUMMARY
-        setText('sum-load-current', Iload.toFixed(2) + ' A');
-        setText('sum-mca', MCA.toFixed(2) + ' A');
-        setText('sum-breaker',
-          breakerSize + ' A (' + vClass + ', est.)'
-        );
+        setText("sum-load-current", Iload.toFixed(2) + " A");
+        setText("sum-mca", MCA.toFixed(2) + " A");
+        setText("sum-breaker", breakerSize + " A (" + vClass + ", est.)");
 
         if (conductor) {
-          setText('sum-conductor',
-            `${conductor.size} @ ${conductor.amp} A (≈ ${conductor.derated.toFixed(1)} A derated)`);
-          setText('cond-phase', conductor.size);
-          setText('cond-derated-amp', conductor.derated.toFixed(1) + ' A');
+          setText(
+            "sum-conductor",
+            `${conductor.size} @ ${conductor.amp} A (≈ ${conductor.derated.toFixed(
+              1
+            )} A derated)`
+          );
+          setText("cond-phase", conductor.size);
+          setText(
+            "cond-derated-amp",
+            conductor.derated.toFixed(1) + " A"
+          );
         } else {
-          setText('sum-conductor', 'No conductor found in table ≥ MCA.');
-          setText('cond-phase', '—');
-          setText('cond-derated-amp', '—');
+          setText(
+            "sum-conductor",
+            "No conductor found in table ≥ MCA."
+          );
+          setText("cond-phase", "—");
+          setText("cond-derated-amp", "—");
         }
 
-        setText('cond-neutral', 'Match phase unless neutral current is lower.');
-        setText('cond-egc', egc);
+        setText(
+          "cond-neutral",
+          "Match phase unless neutral current is lower."
+        );
+        setText("cond-egc", egc);
 
-        const notes = document.getElementById('sum-notes');
+        const notes = document.getElementById("sum-notes");
         if (notes) {
-          notes.innerHTML = '';
-          const mk = t => {
-            const li = document.createElement('li');
+          notes.innerHTML = "";
+          const mk = (t) => {
+            const li = document.createElement("li");
             li.textContent = t;
             return li;
           };
           notes.appendChild(mk(`Voltage class: ${vClass}.`));
-          notes.appendChild(mk(`Continuous factor: ${contFactor.toFixed(2)}, margin: ${margin.toFixed(2)}.`));
-          notes.appendChild(mk(`Conductor derating factor: ${derate.toFixed(2)}.`));
+          notes.appendChild(
+            mk(
+              `Continuous factor: ${contFactor.toFixed(
+                2
+              )}, margin: ${margin.toFixed(2)}.`
+            )
+          );
+          notes.appendChild(
+            mk(`Conductor derating factor: ${derate.toFixed(2)}.`)
+          );
         }
 
         // DEVICES
-        setText('dev-breaker',
-          breakerSize + ' A (' + vClass + ', est.)'
+        setText("dev-breaker", breakerSize + " A (" + vClass + ", est.)");
+        setText("dev-fuse", fuseSize + " A (est.)");
+        setText(
+          "dev-device-factor",
+          (deviceFactor * 100).toFixed(0) + "% of base current"
         );
-        setText('dev-fuse', fuseSize + ' A (est.)');
-        setText('dev-device-factor', (deviceFactor * 100).toFixed(0) + '% of base current');
 
-        const icStr = (vClass === 'MV' || vClass === 'HV')
-          ? `Select ${vClass} breaker/gear with interrupting/duty rating ≥ ${faultLevel.toFixed(1)} kA at system kV.`
-          : `Select LV breaker/fuse with interrupting rating ≥ ${faultLevel.toFixed(1)} kA at system voltage.`;
-        setText('dev-ic-rating', icStr);
+        const icStr =
+          vClass === "MV" || vClass === "HV"
+            ? `Select ${vClass} breaker/gear with interrupting/duty rating ≥ ${faultLevel.toFixed(
+                1
+              )} kA at system kV.`
+            : `Select LV breaker/fuse with interrupting rating ≥ ${faultLevel.toFixed(
+                1
+              )} kA at system voltage.`;
+        setText("dev-ic-rating", icStr);
 
         if (olFactor && motorFLCUsed) {
           const olSetting = motorFLCUsed * olFactor;
-          setText('dev-ol-setting', olSetting.toFixed(1) + ' A (est.)');
-          setText('dev-ol-factor', (olFactor * 100).toFixed(0) + '% of FLC');
+          setText(
+            "dev-ol-setting",
+            olSetting.toFixed(1) + " A (est.)"
+          );
+          setText(
+            "dev-ol-factor",
+            (olFactor * 100).toFixed(0) + "% of FLC"
+          );
         } else {
-          setText('dev-ol-setting', 'Not motor / not used');
-          setText('dev-ol-factor', '—');
+          setText("dev-ol-setting", "Not motor / not used");
+          setText("dev-ol-factor", "—");
         }
 
         // MOTOR TAB
         if (motorFLCUsed) {
-          setText('motor-flc', motorFLCUsed.toFixed(2) + ' A');
-          setText('motor-conductor',
-            'Branch conductor ≥ 125% FLC ≈ ' + (motorFLCUsed * 1.25).toFixed(1) + ' A');
-          setText('motor-sccr',
-            'SCGF device sized ≈ ' + (deviceFactor * 100).toFixed(0) + '% of FLC (430.52-style check).');
+          setText(
+            "motor-flc",
+            motorFLCUsed.toFixed(2) + " A"
+          );
+          setText(
+            "motor-conductor",
+            "Branch conductor ≥ 125% FLC ≈ " +
+              (motorFLCUsed * 1.25).toFixed(1) +
+              " A"
+          );
+          setText(
+            "motor-sccr",
+            "SCGF device sized ≈ " +
+              (deviceFactor * 100).toFixed(0) +
+              "% of FLC (430.52-style check)."
+          );
         } else {
-          setText('motor-flc', '—');
-          setText('motor-conductor', 'Applicable when Motor/MCC is selected.');
-          setText('motor-sccr', '—');
+          setText("motor-flc", "—");
+          setText(
+            "motor-conductor",
+            "Applicable when Motor Branch is selected."
+          );
+          setText("motor-sccr", "—");
         }
 
         // VOLTAGE DROP
-        const vdResult = computeVoltageDrop(Iload, conductor, systemType, V);
+        const vdResult = computeVoltageDrop(
+          Iload,
+          conductor,
+          systemType,
+          V
+        );
         if (vdResult) {
-          setText('vd-nominal', `${vdResult.V.toFixed(1)} V`);
-          setText('vd-allowed', `${vdResult.VdropAllowed.toFixed(2)} V`);
-          setText('vd-actual', `${vdResult.Vdrop.toFixed(2)} V (${vdResult.VdropPct.toFixed(2)}%)`);
-          setText('vd-load-voltage', `${vdResult.Vload.toFixed(2)} V`);
-          setText('vd-conductor', conductor.size);
-          setText('vd-distance-out', vdResult.distance.toFixed(0) + ' ft');
-          setText('vd-max-distance', vdResult.Lmax.toFixed(0) + ' ft');
+          setText(
+            "vd-nominal",
+            `${vdResult.V.toFixed(1)} V`
+          );
+          setText(
+            "vd-allowed",
+            `${vdResult.VdropAllowed.toFixed(2)} V`
+          );
+          setText(
+            "vd-actual",
+            `${vdResult.Vdrop.toFixed(2)} V (${vdResult.VdropPct.toFixed(
+              2
+            )}%)`
+          );
+          setText(
+            "vd-load-voltage",
+            `${vdResult.Vload.toFixed(2)} V`
+          );
+          setText("vd-conductor", conductor.size);
+          setText(
+            "vd-distance-out",
+            vdResult.distance.toFixed(0) + " ft"
+          );
+          setText(
+            "vd-max-distance",
+            vdResult.Lmax.toFixed(0) + " ft"
+          );
 
-          const statusEl = document.getElementById('vd-status');
-          statusEl.innerHTML = '';
-          const span = document.createElement('span');
+          const statusEl = document.getElementById("vd-status");
+          statusEl.innerHTML = "";
+          const span = document.createElement("span");
           if (vdResult.Vdrop <= vdResult.VdropAllowed + 1e-6) {
-            span.textContent = 'OK — within chosen %VD';
-            span.className = 'pill-ok';
+            span.textContent = "OK — within chosen %VD";
+            span.className = "pill-ok";
           } else {
-            span.textContent = 'High — increase size or reduce length';
-            span.className = 'pill-bad';
+            span.textContent = "High — increase size or reduce length";
+            span.className = "pill-bad";
           }
           statusEl.appendChild(span);
 
           window._lastVD = vdResult;
         } else {
-          setText('vd-nominal', '—');
-          setText('vd-allowed', '—');
-          setText('vd-actual', '—');
-          setText('vd-load-voltage', '—');
-          setText('vd-conductor', conductor ? conductor.size : '—');
-          setText('vd-distance-out', '—');
-          setText('vd-max-distance', '—');
-          setText('vd-status', 'Set distance > 0 ft to enable VD check.');
+          setText("vd-nominal", "—");
+          setText("vd-allowed", "—");
+          setText("vd-actual", "—");
+          setText("vd-load-voltage", "—");
+          setText("vd-conductor", conductor ? conductor.size : "—");
+          setText("vd-distance-out", "—");
+          setText("vd-max-distance", "—");
+          setText(
+            "vd-status",
+            "Set distance > 0 ft to enable VD check."
+          );
           window._lastVD = null;
         }
 
@@ -1403,58 +1934,63 @@
           vd: window._lastVD || null,
           baseCurrent,
           baseUsed,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         };
 
         window._lastSizing = sizingSummary;
         window._sizingHistory = window._sizingHistory || [];
         window._sizingHistory.push(sizingSummary);
-
       } catch (err) {
-        showError(err.message || 'Error during calculation.');
+        showError(err.message || "Error during calculation.");
       }
     };
 
     // ------------------ RESET OUTPUTS ------------------
 
     const resetOutputs = () => {
-      setText('sum-device-label', '');
-      setText('sum-load-current', '0.00 A');
-      setText('sum-mca', '0.00 A');
-      setText('sum-breaker', '—');
-      setText('sum-conductor', '—');
-      const notes = document.getElementById('sum-notes');
+      setText("sum-device-label", "");
+      setText("sum-load-current", "0.00 A");
+      setText("sum-mca", "0.00 A");
+      setText("sum-breaker", "—");
+      setText("sum-conductor", "—");
+      const notes = document.getElementById("sum-notes");
       if (notes) {
-        notes.innerHTML = '';
-        const li = document.createElement('li');
-        li.textContent = 'Run calculation to see NEC-based suggestions.';
+        notes.innerHTML = "";
+        const li = document.createElement("li");
+        li.textContent = "Run calculation to see NEC-based suggestions.";
         notes.appendChild(li);
       }
 
-      setText('dev-breaker', '—');
-      setText('dev-fuse', '—');
-      setText('dev-device-factor', '—');
-      setText('dev-ic-rating', '—');
-      setText('dev-ol-setting', '—');
-      setText('dev-ol-factor', '—');
+      setText("dev-breaker", "—");
+      setText("dev-fuse", "—");
+      setText("dev-device-factor", "—");
+      setText("dev-ic-rating", "—");
+      setText("dev-ol-setting", "—");
+      setText("dev-ol-factor", "—");
 
-      setText('cond-phase', '—');
-      setText('cond-neutral', 'Match phase unless neutral loading is lower.');
-      setText('cond-egc', '—');
-      setText('cond-derated-amp', '—');
+      setText("cond-phase", "—");
+      setText(
+        "cond-neutral",
+        "Match phase unless neutral loading is lower."
+      );
+      setText("cond-egc", "—");
+      setText("cond-derated-amp", "—");
 
-      setText('motor-flc', '—');
-      setText('motor-conductor', 'Applicable when Motor/MCC is selected.');
-      setText('motor-sccr', '—');
+      setText("motor-flc", "—");
+      setText(
+        "motor-conductor",
+        "Applicable when Motor Branch is selected."
+      );
+      setText("motor-sccr", "—");
 
-      setText('vd-nominal', '—');
-      setText('vd-allowed', '—');
-      setText('vd-actual', '—');
-      setText('vd-load-voltage', '—');
-      setText('vd-conductor', '—');
-      setText('vd-distance-out', '—');
-      setText('vd-max-distance', '—');
-      setText('vd-status', '—');
+      setText("vd-nominal", "—");
+      setText("vd-allowed", "—");
+      setText("vd-actual", "—");
+      setText("vd-load-voltage", "—");
+      setText("vd-conductor", "—");
+      setText("vd-distance-out", "—");
+      setText("vd-max-distance", "—");
+      setText("vd-status", "—");
 
       if (summaryChartInstance) {
         summaryChartInstance.destroy();
@@ -1463,83 +1999,87 @@
 
       window._lastSizing = null;
       window._lastVD = null;
-      hide(document.getElementById('error-box'));
+      hide(document.getElementById("error-box"));
     };
 
-    // ------------------ CSV & PDF EXPORTS (unchanged logic, now using new fields) ------------------
+    // ------------------ CSV & PDF EXPORTS ------------------
 
     const exportCSV = () => {
       const history = window._sizingHistory || [];
       if (!history.length) {
-        showError('Run at least one calculation before exporting CSV.');
+        showError("Run at least one calculation before exporting CSV.");
         return;
       }
 
       const rows = [];
       rows.push([
-        'Timestamp',
-        'Device Name',
-        'Application Type',
-        'System Type',
-        'Voltage (V)',
-        'Voltage Class',
-        'Load Current (A)',
-        'MCA (A)',
-        'Continuous?',
-        'Design Margin',
-        'Breaker Size (A)',
-        'Fuse Size (A)',
-        'Motor FLC (A)',
-        'Conductor Material',
-        'Conductor Size',
-        'Conductor Ampacity (approx)',
-        'Derated Ampacity (A)',
-        'Derating Factor',
-        'Device Factor (%)',
-        'Overload Factor (%)',
-        'Fault Level (kA)',
-        'VD Distance (ft)',
-        'VD Drop (%)',
-        'VD Load Voltage (V)'
+        "Timestamp",
+        "Device Name",
+        "Application Type",
+        "System Type",
+        "Voltage (V)",
+        "Voltage Class",
+        "Load Current (A)",
+        "MCA (A)",
+        "Continuous?",
+        "Design Margin",
+        "Breaker Size (A)",
+        "Fuse Size (A)",
+        "Motor FLC (A)",
+        "Conductor Material",
+        "Conductor Size",
+        "Conductor Ampacity (approx)",
+        "Derated Ampacity (A)",
+        "Derating Factor",
+        "Device Factor (%)",
+        "Overload Factor (%)",
+        "Fault Level (kA)",
+        "VD Distance (ft)",
+        "VD Drop (%)",
+        "VD Load Voltage (V)",
       ]);
 
-      history.forEach(s => {
+      history.forEach((s) => {
         const vd = s.vd || null;
         rows.push([
-          s.timestamp || '',
-          s.devName || '',
+          s.timestamp || "",
+          s.devName || "",
           s.appType,
-          s.systemType === 'three' ? 'Three-phase' : 'Single-phase',
+          s.systemType === "three" ? "Three-phase" : "Single-phase",
           s.V.toFixed(1),
           s.vClass || getVoltageClass(s.V),
           s.Iload.toFixed(2),
           s.MCA.toFixed(2),
-          s.continuous ? 'Yes' : 'No',
+          s.continuous ? "Yes" : "No",
           s.margin.toFixed(2),
           s.breakerSize,
           s.fuseSize,
-          s.motorFLCUsed !== null ? s.motorFLCUsed.toFixed(2) : '',
+          s.motorFLCUsed !== null ? s.motorFLCUsed.toFixed(2) : "",
           s.material.toUpperCase(),
-          s.conductor ? s.conductor.size : '',
-          s.conductor ? s.conductor.amp : '',
-          s.conductor ? s.conductor.derated.toFixed(2) : '',
+          s.conductor ? s.conductor.size : "",
+          s.conductor ? s.conductor.amp : "",
+          s.conductor ? s.conductor.derated.toFixed(2) : "",
           s.derate.toFixed(2),
           (s.deviceFactor * 100).toFixed(0),
-          s.olFactor ? (s.olFactor * 100).toFixed(0) : '',
+          s.olFactor ? (s.olFactor * 100).toFixed(0) : "",
           s.faultLevel.toFixed(1),
-          vd ? vd.distance.toFixed(0) : '',
-          vd ? vd.VdropPct.toFixed(2) : '',
-          vd ? vd.Vload.toFixed(2) : ''
+          vd ? vd.distance.toFixed(0) : "",
+          vd ? vd.VdropPct.toFixed(2) : "",
+          vd ? vd.Vload.toFixed(2) : "",
         ]);
       });
 
       const csv = rows
-        .map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
-        .join('\n');
+        .map((r) =>
+          r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")
+        )
+        .join("\n");
 
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;",
+      });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = `OFORI_E-sizing_Session.csv`;
 
@@ -1552,23 +2092,26 @@
     const exportPdf = async () => {
       try {
         if (!window.jspdf) {
-          showError('PDF library not loaded.');
+          showError("PDF library not loaded.");
           return;
         }
 
-        const history = (window._sizingHistory && window._sizingHistory.length)
-          ? window._sizingHistory
-          : (window._lastSizing ? [window._lastSizing] : []);
+        const history =
+          window._sizingHistory && window._sizingHistory.length
+            ? window._sizingHistory
+            : window._lastSizing
+            ? [window._lastSizing]
+            : [];
 
         if (!history.length) {
-          showError('Run at least one calculation before exporting PDF.');
+          showError("Run at least one calculation before exporting PDF.");
           return;
         }
 
         const last = history[history.length - 1];
         const { jsPDF } = window.jspdf;
 
-        const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+        const pdf = new jsPDF({ unit: "pt", format: "a4" });
         const marginLeft = 40;
         const pageWidth = pdf.internal.pageSize.getWidth();
         const contentWidth = pageWidth - marginLeft * 2;
@@ -1576,10 +2119,10 @@
 
         const addLine = (text, opts = {}) => {
           const { bold = false, size = 10 } = opts;
-          pdf.setFont('helvetica', bold ? 'bold' : 'normal');
+          pdf.setFont("helvetica", bold ? "bold" : "normal");
           pdf.setFontSize(size);
           const lines = pdf.splitTextToSize(text, contentWidth);
-          lines.forEach(line => {
+          lines.forEach((line) => {
             if (y > 770) {
               pdf.addPage();
               y = 50;
@@ -1589,14 +2132,22 @@
           });
         };
 
-        pdf.setFont('helvetica', 'bold');
+        pdf.setFont("helvetica", "bold");
         pdf.setFontSize(16);
-        pdf.text('OFORI E-sizing — NEC LV/MV/HV Sizing Report', marginLeft, y);
+        pdf.text(
+          "OFORI E-sizing — NEC LV/MV/HV Sizing Report",
+          marginLeft,
+          y
+        );
         y += 24;
 
-        const devName = last.devName || '—';
+        const devName = last.devName || "—";
         pdf.setFontSize(12);
-        pdf.text(`Last Calculated Circuit / Device: ${devName}`, marginLeft, y);
+        pdf.text(
+          `Last Calculated Circuit / Device: ${devName}`,
+          marginLeft,
+          y
+        );
         y += 18;
 
         const now = new Date();
@@ -1605,36 +2156,42 @@
 
         // Session summary table
         y += 10;
-        addLine('Session Device Summary', { bold: true, size: 12 });
+        addLine("Session Device Summary", { bold: true, size: 12 });
 
-        const xNo    = marginLeft;
-        const xDev   = marginLeft + 24;
-        const xApp   = marginLeft + 150;
-        const xV     = marginLeft + 220;
+        const xNo = marginLeft;
+        const xDev = marginLeft + 24;
+        const xApp = marginLeft + 150;
+        const xV = marginLeft + 220;
         const xClass = marginLeft + 260;
-        const xIL    = marginLeft + 300;
-        const xMCA   = marginLeft + 350;
-        const xBrk   = marginLeft + 400;
-        const xCond  = marginLeft + 450;
+        const xIL = marginLeft + 300;
+        const xMCA = marginLeft + 350;
+        const xBrk = marginLeft + 400;
+        const xCond = marginLeft + 450;
 
-        pdf.setFont('helvetica', 'bold');
+        pdf.setFont("helvetica", "bold");
         pdf.setFontSize(9);
-        if (y > 770) { pdf.addPage(); y = 50; }
-        pdf.text('No.',   xNo,    y);
-        pdf.text('Device', xDev,  y);
-        pdf.text('App',   xApp,   y);
-        pdf.text('V (V)', xV,     y);
-        pdf.text('Class', xClass, y);
-        pdf.text('Iload', xIL,    y);
-        pdf.text('MCA',   xMCA,   y);
-        pdf.text('Brk',   xBrk,   y);
-        pdf.text('Cond.', xCond,  y);
+        if (y > 770) {
+          pdf.addPage();
+          y = 50;
+        }
+        pdf.text("No.", xNo, y);
+        pdf.text("Device", xDev, y);
+        pdf.text("App", xApp, y);
+        pdf.text("V (V)", xV, y);
+        pdf.text("Class", xClass, y);
+        pdf.text("Iload", xIL, y);
+        pdf.text("MCA", xMCA, y);
+        pdf.text("Brk", xBrk, y);
+        pdf.text("Cond.", xCond, y);
         y += 12;
 
-        pdf.setFont('helvetica', 'normal');
+        pdf.setFont("helvetica", "normal");
         history.forEach((s, idx) => {
-          if (y > 770) { pdf.addPage(); y = 50; }
-          const devShort = (s.devName || '—').slice(0, 20);
+          if (y > 770) {
+            pdf.addPage();
+            y = 50;
+          }
+          const devShort = (s.devName || "—").slice(0, 20);
           pdf.text(String(idx + 1), xNo, y);
           pdf.text(devShort, xDev, y);
           pdf.text(s.appType, xApp, y);
@@ -1643,7 +2200,13 @@
           pdf.text(s.Iload.toFixed(1), xIL, y);
           pdf.text(s.MCA.toFixed(1), xMCA, y);
           pdf.text(String(s.breakerSize), xBrk, y);
-          pdf.text(s.conductor ? s.conductor.size.replace(' kcmil ', 'kcmil ') : '—', xCond, y);
+          pdf.text(
+            s.conductor
+              ? s.conductor.size.replace(" kcmil ", "kcmil ")
+              : "—",
+            xCond,
+            y
+          );
           y += 12;
         });
 
@@ -1653,12 +2216,12 @@
         const rowHeight = 14;
         const lastCond = last.conductor;
         const summaryRows = [
-          ['Voltage Class', last.vClass || getVoltageClass(last.V)],
-          ['Voltage', `${last.V.toFixed(1)} V`],
-          ['Load Current', `${last.Iload.toFixed(2)} A`],
-          ['MCA', `${last.MCA.toFixed(2)} A`],
-          ['Breaker', `${last.breakerSize} A`],
-          ['Conductor', lastCond ? lastCond.size : '—']
+          ["Voltage Class", last.vClass || getVoltageClass(last.V)],
+          ["Voltage", `${last.V.toFixed(1)} V`],
+          ["Load Current", `${last.Iload.toFixed(2)} A`],
+          ["MCA", `${last.MCA.toFixed(2)} A`],
+          ["Breaker", `${last.breakerSize} A`],
+          ["Conductor", lastCond ? lastCond.size : "—"],
         ];
 
         pdf.setDrawColor(180);
@@ -1669,16 +2232,19 @@
           rowHeight * (summaryRows.length + 1) + 4
         );
 
-        pdf.setFont('helvetica', 'bold');
+        pdf.setFont("helvetica", "bold");
         pdf.setFontSize(11);
-        pdf.text('Last Device Summary', marginLeft + 4, summaryTop + 4);
+        pdf.text("Last Device Summary", marginLeft + 4, summaryTop + 4);
         y = summaryTop + rowHeight;
 
         pdf.setFontSize(9);
-        pdf.setFont('helvetica', 'normal');
+        pdf.setFont("helvetica", "normal");
 
         summaryRows.forEach(([label, value]) => {
-          if (y > 770) { pdf.addPage(); y = 50; }
+          if (y > 770) {
+            pdf.addPage();
+            y = 50;
+          }
           pdf.text(`${label}:`, marginLeft + 8, y);
           pdf.text(String(value), marginLeft + 120, y);
           y += rowHeight;
@@ -1686,108 +2252,194 @@
 
         // Detailed sections for last device
         y += 10;
-        addLine('1. System & Load (Last Device)', { bold: true, size: 12 });
+        addLine("1. System & Load (Last Device)", {
+          bold: true,
+          size: 12,
+        });
         addLine(`Application Type: ${last.appType}`);
-        addLine(`System Type: ${last.systemType === 'three' ? 'Three-phase' : 'Single-phase'}`);
-        addLine(`Voltage Class: ${last.vClass || getVoltageClass(last.V)}`);
+        addLine(
+          `System Type: ${
+            last.systemType === "three" ? "Three-phase" : "Single-phase"
+          }`
+        );
+        addLine(
+          `Voltage Class: ${
+            last.vClass || getVoltageClass(last.V)
+          }`
+        );
         addLine(`Nominal Voltage: ${last.V.toFixed(1)} V`);
-        addLine(`Load Current (Iload): ${last.Iload.toFixed(2)} A`);
-        addLine(`Continuous: ${last.continuous ? 'Yes' : 'No'} (factor ${last.contFactor.toFixed(2)})`);
+        addLine(
+          `Load Current (Iload): ${last.Iload.toFixed(2)} A`
+        );
+        addLine(
+          `Continuous: ${last.continuous ? "Yes" : "No"} (factor ${last.contFactor.toFixed(
+            2
+          )})`
+        );
         addLine(`Design Margin: ${last.margin.toFixed(2)}×`);
         addLine(`MCA: ${last.MCA.toFixed(2)} A`);
 
         y += 10;
-        addLine('2. Protective Devices (Last Device)', { bold: true, size: 12 });
+        addLine("2. Protective Devices (Last Device)", {
+          bold: true,
+          size: 12,
+        });
         addLine(
-          `Base current for device sizing: ${last.baseCurrent ? last.baseCurrent.toFixed(2) : last.Iload.toFixed(2)} A`
+          `Base current for device sizing: ${
+            last.baseCurrent
+              ? last.baseCurrent.toFixed(2)
+              : last.Iload.toFixed(2)
+          } A`
         );
         addLine(
           `Suggested breaker: ${last.breakerSize} A (` +
-          `${(last.deviceFactor * 100).toFixed(0)}% of base current).`
+            `${(last.deviceFactor * 100).toFixed(
+              0
+            )}% of base current).`
         );
         addLine(`Suggested fuse: ${last.fuseSize} A.`);
-        addLine(`Fault level basis: ${last.faultLevel.toFixed(1)} kA.`);
+        addLine(
+          `Fault level basis: ${last.faultLevel.toFixed(1)} kA.`
+        );
 
-        if (last.motorFLCUsed) addLine(`Motor FLC basis: ${last.motorFLCUsed.toFixed(2)} A.`);
+        if (last.motorFLCUsed)
+          addLine(
+            `Motor FLC basis: ${last.motorFLCUsed.toFixed(2)} A.`
+          );
         if (last.olFactor && last.motorFLCUsed) {
           addLine(
-            `Overload setting ≈ ${(last.motorFLCUsed * last.olFactor).toFixed(1)} A ` +
-            `(${(last.olFactor * 100).toFixed(0)}% FLC).`
+            `Overload setting ≈ ${(
+              last.motorFLCUsed * last.olFactor
+            ).toFixed(1)} A ` +
+              `(${(last.olFactor * 100).toFixed(0)}% FLC).`
           );
         }
 
         y += 10;
-        addLine('3. Conductors (Last Device)', { bold: true, size: 12 });
+        addLine("3. Conductors (Last Device)", {
+          bold: true,
+          size: 12,
+        });
         if (last.conductor) {
-          addLine(`Phase conductor: ${last.conductor.size}, approx ampacity ${last.conductor.amp} A.`);
           addLine(
-            `Derating factor: ${last.derate.toFixed(2)} → ` +
-            `derated ampacity ≈ ${last.conductor.derated.toFixed(2)} A.`
+            `Phase conductor: ${last.conductor.size}, approx ampacity ${last.conductor.amp} A.`
+          );
+          addLine(
+            `Derating factor: ${last.derate.toFixed(
+              2
+            )} → derated ampacity ≈ ${last.conductor.derated.toFixed(
+              2
+            )} A.`
           );
           addLine(`Material: ${last.material.toUpperCase()}.`);
         } else {
-          addLine('No conductor in table met MCA; confirm with NEC tables for LV/MV/HV.');
+          addLine(
+            "No conductor in table met MCA; confirm with NEC tables for LV/MV/HV."
+          );
         }
-        addLine('EGC per NEC 250 (LV/MV/HV grounding tables).');
+        addLine(
+          "EGC per NEC 250 (LV/MV/HV grounding tables)."
+        );
 
         y += 10;
-        addLine('4. Voltage Drop (Last Device, if distance entered)', { bold: true, size: 12 });
+        addLine(
+          "4. Voltage Drop (Last Device, if distance entered)",
+          { bold: true, size: 12 }
+        );
         if (last.vd && last.conductor) {
           const vd = last.vd;
-          addLine(`Conductor: ${last.conductor.size}, one-way distance ${vd.distance.toFixed(0)} ft.`);
+          addLine(
+            `Conductor: ${last.conductor.size}, one-way distance ${vd.distance.toFixed(
+              0
+            )} ft.`
+          );
           addLine(`Nominal voltage: ${vd.V.toFixed(1)} V.`);
-          addLine(`Max allowed drop: ${vd.VdropAllowed.toFixed(2)} V.`);
-          addLine(`Actual drop: ${vd.Vdrop.toFixed(2)} V (${vd.VdropPct.toFixed(2)}%).`);
-          addLine(`Voltage at load: ${vd.Vload.toFixed(2)} V.`);
-          addLine(`Max one-way distance at chosen %VD: ${vd.Lmax.toFixed(0)} ft.`);
+          addLine(
+            `Max allowed drop: ${vd.VdropAllowed.toFixed(2)} V.`
+          );
+          addLine(
+            `Actual drop: ${vd.Vdrop.toFixed(2)} V (${vd.VdropPct.toFixed(
+              2
+            )}%).`
+          );
+          addLine(
+            `Voltage at load: ${vd.Vload.toFixed(2)} V.`
+          );
+          addLine(
+            `Max one-way distance at chosen %VD: ${vd.Lmax.toFixed(
+              0
+            )} ft.`
+          );
         } else {
-          addLine('Voltage drop not evaluated — set distance > 0 ft to enable.');
+          addLine(
+            "Voltage drop not evaluated — set distance > 0 ft to enable."
+          );
         }
 
         y += 10;
-        addLine('5. Notes', { bold: true, size: 12 });
-        addLine('Tool is an NEC-oriented engineering aid, not a substitute for full code and coordination studies.');
-        addLine('Always confirm LV/MV/HV conductor ampacities, OCPD ratings, and settings with current NEC and AHJ.');
+        addLine("5. Notes", { bold: true, size: 12 });
+        addLine(
+          "Tool is an NEC-oriented engineering aid, not a substitute for full code and coordination studies."
+        );
+        addLine(
+          "Always confirm LV/MV/HV conductor ampacities, OCPD ratings, and settings with current NEC and AHJ."
+        );
 
-        const cleanName = (last.devName || 'Session')
-          .replace(/[^a-z0-9]+/gi, '_')
-          .replace(/^_+|_+$/g, '');
-        pdf.save(`OFORI_E-sizing_${cleanName || 'Session'}.pdf`);
+        const cleanName = (last.devName || "Session")
+          .replace(/[^a-z0-9]+/gi, "_")
+          .replace(/^_+|_+$/g, "");
+        pdf.save(
+          `OFORI_E-sizing_${cleanName || "Session"}.pdf`
+        );
       } catch (e) {
-        console.warn('PDF export error, fallback to print', e);
+        console.warn("PDF export error, fallback to print", e);
         window.print();
       }
     };
 
     // ------------------ TABS ------------------
 
-    const activateTab = name => {
-      const tabs = ['summary', 'devices', 'conductors', 'motor', 'vdrop'];
-      tabs.forEach(t => {
-        const btn = document.getElementById('tab-' + t);
-        const content = document.getElementById('content-' + t);
+    const activateTab = (name) => {
+      const tabs = ["summary", "devices", "conductors", "motor", "vdrop"];
+      tabs.forEach((t) => {
+        const btn = document.getElementById("tab-" + t);
+        const content = document.getElementById("content-" + t);
         if (t === name) {
-          btn && btn.classList.add('tab-active');
+          btn && btn.classList.add("tab-active");
           content && show(content);
         } else {
-          btn && btn.classList.remove('tab-active');
+          btn && btn.classList.remove("tab-active");
           content && hide(content);
         }
       });
     };
 
-    const activateInputTab = name => {
-      const tabs = ['sysload', 'condvd'];
-      tabs.forEach(t => {
-        const btn = document.getElementById('input-tab-' + t);
-        const section = document.getElementById('input-section-' + t);
+    const activateInputTab = (name) => {
+      const tabs = ["sysload", "condvd"];
+      tabs.forEach((t) => {
+        const btn = document.getElementById("input-tab-" + t);
+        const section = document.getElementById("input-section-" + t);
         if (t === name) {
-          btn && btn.classList.add('input-tab-active', 'border-white', 'text-white', 'bg-white/15');
-          btn && btn.classList.remove('border-transparent', 'text-sky-50');
+          btn &&
+            btn.classList.add(
+              "input-tab-active",
+              "border-white",
+              "text-white",
+              "bg-white/15"
+            );
+          btn &&
+            btn.classList.remove("border-transparent", "text-sky-50");
           section && show(section);
         } else {
-          btn && btn.classList.remove('input-tab-active', 'border-white', 'text-white', 'bg-white/15');
-          btn && btn.classList.add('border-transparent', 'text-sky-50');
+          btn &&
+            btn.classList.remove(
+              "input-tab-active",
+              "border-white",
+              "text-white",
+              "bg-white/15"
+            );
+          btn &&
+            btn.classList.add("border-transparent", "text-sky-50");
           section && hide(section);
         }
       });
@@ -1795,78 +2447,121 @@
 
     // ------------------ INIT ------------------
 
-    window.addEventListener('DOMContentLoaded', () => {
-      window._systemType = 'single';
+    window.addEventListener("DOMContentLoaded", () => {
+      window._systemType = "single";
       window._sizingHistory = [];
 
       refreshLoadInputs();
       updateVoltageOptions(window._systemType);
 
-      document.getElementById('btn-single').addEventListener('click', () => {
-        window._systemType = 'single';
-        const a = document.getElementById('btn-single');
-        const b = document.getElementById('btn-three');
-        a.classList.add('bg-sky-600', 'hover:bg-sky-700');
-        a.classList.remove('bg-sky-800');
-        b.classList.add('bg-slate-800');
-        b.classList.remove('bg-sky-600');
-        updateVoltageOptions('single');
-      });
+      document
+        .getElementById("btn-single")
+        .addEventListener("click", () => {
+          window._systemType = "single";
+          const a = document.getElementById("btn-single");
+          const b = document.getElementById("btn-three");
+          a.classList.add("bg-sky-600", "hover:bg-sky-700");
+          a.classList.remove("bg-sky-800");
+          b.classList.add("bg-slate-800");
+          b.classList.remove("bg-sky-600");
+          updateVoltageOptions("single");
+        });
 
-      document.getElementById('btn-three').addEventListener('click', () => {
-        window._systemType = 'three';
-        const a = document.getElementById('btn-single');
-        const b = document.getElementById('btn-three');
-        b.classList.add('bg-sky-600', 'hover:bg-sky-700');
-        b.classList.remove('bg-slate-800');
-        a.classList.add('bg-slate-800');
-        a.classList.remove('bg-sky-600');
-        updateVoltageOptions('three');
-      });
+      document
+        .getElementById("btn-three")
+        .addEventListener("click", () => {
+          window._systemType = "three";
+          const a = document.getElementById("btn-single");
+          const b = document.getElementById("btn-three");
+          b.classList.add("bg-sky-600", "hover:bg-sky-700");
+          b.classList.remove("bg-slate-800");
+          a.classList.add("bg-slate-800");
+          a.classList.remove("bg-sky-600");
+          updateVoltageOptions("three");
+        });
 
-      document.getElementById('app-type').addEventListener('change', refreshLoadInputs);
-      document.getElementById('btn-calc').addEventListener('click', buildResults);
+      document
+        .getElementById("app-type")
+        .addEventListener("change", refreshLoadInputs);
+      document
+        .getElementById("btn-calc")
+        .addEventListener("click", buildResults);
 
-      document.getElementById('btn-reset').addEventListener('click', () => {
-        window._systemType = 'single';
-        document.getElementById('btn-single').click();
+      document
+        .getElementById("btn-reset")
+        .addEventListener("click", () => {
+          window._systemType = "single";
+          document.getElementById("btn-single").click();
 
-        document.getElementById('device-name').value = '';
-        document.getElementById('voltage').value = 480;
-        document.getElementById('continuous').value = 'yes';
-        document.getElementById('design-margin').value = '1.0';
-        document.getElementById('cond-material').value = 'cu';
-        document.getElementById('insulation').value = '75';
-        document.getElementById('derate-factor').value = '';
-        document.getElementById('fault-level').value = '25';
-        document.getElementById('cond-count').value = '3';
-        document.getElementById('ambient-c').value = '30';
-        document.getElementById('vd-max-pct').value = '3';
-        document.getElementById('vd-parallel').value = '1';
-        document.getElementById('vd-distance').value = '0';
-        document.getElementById('app-type').value = 'motor';
-        refreshLoadInputs();
-        activateTab('summary');
-        activateInputTab('sysload');
-        resetOutputs();
-      });
+          document.getElementById("device-name").value = "";
+          document.getElementById("voltage").value = 480;
+          document.getElementById("continuous").value = "yes";
+          document.getElementById("design-margin").value = "1.0";
+          document.getElementById("cond-material").value = "cu";
+          document.getElementById("insulation").value = "75";
+          document.getElementById("derate-factor").value = "";
+          document.getElementById("fault-level").value = "25";
+          document.getElementById("cond-count").value = "3";
+          document.getElementById("ambient-c").value = "30";
+          document.getElementById("vd-max-pct").value = "3";
+          document.getElementById("vd-parallel").value = "1";
+          document.getElementById("vd-distance").value = "0";
+          document.getElementById("app-type").value = "motor";
+          refreshLoadInputs();
+          activateTab("summary");
+          activateInputTab("sysload");
+          resetOutputs();
+        });
 
-      document.getElementById('tab-summary').addEventListener('click', () => activateTab('summary'));
-      document.getElementById('tab-devices').addEventListener('click', () => activateTab('devices'));
-      document.getElementById('tab-conductors').addEventListener('click', () => activateTab('conductors'));
-      document.getElementById('tab-motor').addEventListener('click', () => activateTab('motor'));
-      document.getElementById('tab-vdrop').addEventListener('click', () => activateTab('vdrop'));
+      document
+        .getElementById("tab-summary")
+        .addEventListener("click", () =>
+          activateTab("summary")
+        );
+      document
+        .getElementById("tab-devices")
+        .addEventListener("click", () =>
+          activateTab("devices")
+        );
+      document
+        .getElementById("tab-conductors")
+        .addEventListener("click", () =>
+          activateTab("conductors")
+        );
+      document
+        .getElementById("tab-motor")
+        .addEventListener("click", () =>
+          activateTab("motor")
+        );
+      document
+        .getElementById("tab-vdrop")
+        .addEventListener("click", () =>
+          activateTab("vdrop")
+        );
 
-      document.getElementById('input-tab-sysload').addEventListener('click', () => activateInputTab('sysload'));
-      document.getElementById('input-tab-condvd').addEventListener('click', () => activateInputTab('condvd'));
+      document
+        .getElementById("input-tab-sysload")
+        .addEventListener("click", () =>
+          activateInputTab("sysload")
+        );
+      document
+        .getElementById("input-tab-condvd")
+        .addEventListener("click", () =>
+          activateInputTab("condvd")
+        );
 
-      document.getElementById('btn-download-csv').addEventListener('click', exportCSV);
-      document.getElementById('export-pdf-btn').addEventListener('click', exportPdf);
+      document
+        .getElementById("btn-download-csv")
+        .addEventListener("click", exportCSV);
+      document
+        .getElementById("export-pdf-btn")
+        .addEventListener("click", exportPdf);
 
-      activateTab('summary');
-      activateInputTab('sysload');
+      activateTab("summary");
+      activateInputTab("sysload");
       resetOutputs();
     });
   </script>
 </body>
 </html>
+```
