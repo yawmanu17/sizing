@@ -64,7 +64,7 @@
             <div>
               <h1 class="text-2xl font-bold text-white">OFORI E-sizing</h1>
               <p class="text-xs text-slate-300 -mt-1">
-                NEC Sizing Assistant — Breakers • Fuses • Overloads • Conductors • Voltage Drop
+                NEC Sizing Assistant — LV • MV • HV — Breakers • Fuses • Overloads • Conductors • Voltage Drop
               </p>
             </div>
           </div>
@@ -90,10 +90,11 @@
           <p class="mb-3 text-sky-50 text-xs sm:text-sm leading-snug">
             Enter load details from nameplate or NEC FLC tables. The assistant estimates
             <span class="font-semibold">MCA</span>, <span class="font-semibold">breaker / fuse rating</span>,
-            <span class="font-semibold">overload setting</span>, and <span class="font-semibold">voltage drop</span>.
+            <span class="font-semibold">overload setting</span>, and <span class="font-semibold">voltage drop</span>
+            for LV (&le;600 V) and MV up to 5 kV.
           </p>
 
-          <!-- Input tabs (slightly larger font) -->
+          <!-- Input tabs -->
           <div class="border-b border-white/30 mb-3">
             <nav class="-mb-px flex flex-wrap gap-2 text-sm sm:text-base font-semibold">
               <button id="input-tab-sysload"
@@ -152,6 +153,7 @@
                   <option data-phase="3" value="347">347 V (L-N 600Y/347)</option>
                   <option data-phase="3" value="480" selected>480 V (3φ)</option>
                   <option data-phase="3" value="600">600 V</option>
+                  <option data-phase="3" value="1000">1000 V</option>
                   <option data-phase="3" value="2400">2400 V</option>
                   <option data-phase="3" value="4160">4160 V</option>
                   <option data-phase="3" value="4800">4800 V</option>
@@ -159,7 +161,7 @@
                 </optgroup>
               </select>
               <p class="text-[11px] text-sky-100 mt-1">
-                Select Nominal System Voltage.
+                Tool treats ≤600 V as LV and >1000 V as MV (up to 5 kV). Higher HV systems require dedicated studies.
               </p>
             </div>
 
@@ -243,7 +245,7 @@
                          min="5" step="1"
                          class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
                   <p class="text-[11px] text-sky-100 mt-1">
-                    Used for interrupting rating check.
+                    Used for LV/MV interrupting rating or MV breaker/relay duty check.
                   </p>
                 </div>
               </div>
@@ -278,7 +280,7 @@
                          min="1" max="10" step="0.1"
                          class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
                   <p class="text-[11px] text-sky-100 mt-1">
-                    NEC FPN: 3% on branch/feeder often used.
+                    NEC Fine Print often uses 3% on a branch/feeder as a design target.
                   </p>
                 </div>
                 <div>
@@ -314,7 +316,9 @@
 
           <p class="mt-3 text-[11px] text-sky-100 leading-snug">
             For quick checks (motors, feeders, generators, branch circuits). Always confirm with the latest NEC
-            (Articles 210, 215, 220, 240, 250, 310, 430, 445) and your AHJ.
+            and your AHJ. For MV conductors and motors over 1000 V, refer to the appropriate NEC articles
+            (e.g., medium-voltage conductor rules around 250.180 / 315 and motor rules such as 430.201, 430.205, 430.206,
+            plus tables like 315.60 in your adopted edition).
           </p>
         </aside>
 
@@ -394,7 +398,7 @@
                   </p>
                   <p id="sum-breaker" class="text-xl sm:text-2xl font-semibold text-gray-900 mt-1">—</p>
                   <p class="text-xs text-gray-500 mt-2">
-                    Nearest standard rating (est.).
+                    LV uses standard frame ratings; MV uses 600/1500/2000 A frames with external relays.
                   </p>
                 </div>
               </div>
@@ -406,7 +410,7 @@
                   </p>
                   <p id="sum-conductor" class="text-lg sm:text-xl font-semibold text-gray-900 mt-1">—</p>
                   <p class="text-xs text-gray-500 mt-2">
-                    Based on derated ampacity ≥ MCA. Cu/Al and insulation considered.
+                    Based on derated ampacity ≥ MCA. Cu/Al and insulation considered (LV/MV approximate).
                   </p>
                 </div>
                 <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
@@ -440,7 +444,8 @@
                 <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
                   <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Breaker / Fuse</h3>
                   <p class="text-[11px] sm:text-xs text-gray-500 mb-1">
-                    Branch-circuit short-circuit and ground-fault protection.
+                    LV: molded case / power breakers. MV: metal-clad or metal-enclosed breakers with external relays
+                    (e.g., 600/1500/2000 A frames).
                   </p>
                   <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
                     <div class="flex justify-between">
@@ -456,20 +461,22 @@
                       <dd id="dev-device-factor" class="font-mono text-[11px] sm:text-xs">—</dd>
                     </div>
                     <div class="flex justify-between">
-                      <dt>Interrupting Check:</dt>
+                      <dt>Interrupting Check / Duty:</dt>
                       <dd id="dev-ic-rating" class="font-mono text-[11px] sm:text-xs">—</dd>
                     </div>
                   </dl>
                   <p class="mt-2 text-[11px] text-gray-500">
-                    Motors and generators often allow higher multiples of FLC for breakers/fuses than general loads.
-                    Verify with NEC 430.52, 445.13 &amp; 240 for your device type.
+                    Motors &amp; generators may allow higher multiples of FLC for breakers/fuses than general loads.
+                    For MV, check NEC 430/445, 315 and utility/IEEE guides for relay settings.
+                    Large motors may use dedicated motor-protection and differential relays.
                   </p>
                 </div>
 
                 <div class="result-card bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
                   <h3 class="text-xs sm:text-sm font-semibold text-gray-700 mb-2">Overload Protection (Motors)</h3>
                   <p class="text-[11px] sm:text-xs text-gray-500 mb-1">
-                    Thermal or electronic overload relay protecting against overload (not short-circuit).
+                    Thermal or electronic overload relay protecting against overload (not short-circuit). For MV motors,
+                    electronic relays often supervise overload, ground, and other elements.
                   </p>
                   <dl class="mt-2 text-xs sm:text-sm text-gray-700 space-y-1">
                     <div class="flex justify-between">
@@ -483,7 +490,7 @@
                   </dl>
                   <p class="mt-2 text-[11px] text-gray-500">
                     For motors, overloads are typically set around 115–125% of FLC depending on service factor
-                    and temperature rise (NEC 430.32).
+                    and temperature rise (NEC 430.32). For motors over 1000 V, see rules such as 430.201, 430.205, 430.206.
                   </p>
                 </div>
               </div>
@@ -518,8 +525,10 @@
                   </div>
                 </dl>
                 <p class="mt-2 text-[11px] text-gray-500">
-                  Ampacities are approximate for 75°C Cu/Al with common installation conditions.
-                  Always confirm with NEC Article 310 ampacity/adjustment tables and grounding table 250.122.
+                  LV ampacities are approximate for 75°C Cu/Al with common installation conditions.
+                  For MV conductors (over 1000 V), confirm with the medium-voltage conductor articles and
+                  tables (e.g., NEC medium-voltage parts around 250.180 / 315 and tables like 315.60, depending
+                  on your code edition).
                 </p>
               </div>
 
@@ -556,6 +565,8 @@
                   </dl>
                   <p class="mt-2 text-[11px] text-gray-500">
                     Conductors usually at 125% of FLC; breaker or fuse may be higher to allow for inrush (NEC 430.22, 430.52).
+                    For motors above 1000 V, see the dedicated motor sections for MV (e.g., 430.201, 430.205, 430.206) and
+                    the MV conductor tables (such as 315.60).
                   </p>
                 </div>
 
@@ -637,18 +648,29 @@
 
     <!-- Footer -->
     <footer class="mt-2 text-center text-[11px] text-slate-300 pb-6">
-      <div>Built by Solomon Ofori Manu. <span class="font-semibold">OFORI E-sizing</span>™ — Smarter power, safer circuits.</div>
-      <div class="mt-1">Always verify with the latest NEC and your local AHJ.</div>
+      <div>Built by Solomon Ofori Manu. <span class="font-semibold">OFORI E-sizing</span>™ — Smarter power, safer LV/MV circuits.</div>
+      <div class="mt-1">
+        Always verify with the latest NEC and your local AHJ. For LV refer to Articles 210, 215, 220, 240, 250, 310, 430, 445.
+        For MV motors &amp; conductors over 1000 V, confirm with the medium-voltage sections (e.g., 250.180, 315, 430 Part XI and
+        tables such as 315.60) and any local amendments.
+      </div>
     </footer>
   </div>
 
   <script>
     // ------------------ DATA & HELPERS ------------------
 
-    const STANDARD_BREAKERS = [
+    // Low-voltage breaker frames (up to 600 V)
+    const STANDARD_BREAKERS_LV = [
       15, 20, 25, 30, 35, 40, 45, 50, 60, 70,
       80, 90, 100, 110, 125, 150, 175, 200,
       225, 250, 300, 350, 400, 450, 500, 600
+    ];
+
+    // Medium-voltage breaker frames (tool assumption, up to ~5 kV)
+    // As you requested: 600 A, 1500 A, 2000 A.
+    const STANDARD_BREAKERS_MV = [
+      600, 1500, 2000
     ];
 
     const CONDUCTOR_TABLE = {
@@ -718,6 +740,13 @@
       setTimeout(() => hide(box), 6000);
     };
 
+    // Voltage class helper: LV / MV / HV (tool assumptions)
+    const getVoltageClass = (V) => {
+      if (V <= 600) return 'LV';          // Low voltage (up to 600 V)
+      if (V <= 15000) return 'MV';        // Medium voltage up to ~15 kV (tool supports up to 5 kV)
+      return 'HV';                        // High voltage >15 kV (tool not fully modeled)
+    };
+
     const computeDerateAutomatic = ({ conductorCount = 3, ambientC = 30, insulation = 75 }) => {
       let ccFactor = 1.0;
       if (conductorCount <= 3) ccFactor = 1.0;
@@ -761,18 +790,24 @@
       }
     };
 
-    const pickBreaker = valA => {
-      for (const b of STANDARD_BREAKERS) {
+    const pickBreaker = (valA, V) => {
+      const vClass = getVoltageClass(V);
+      const table = (vClass === 'MV' || vClass === 'HV') ? STANDARD_BREAKERS_MV : STANDARD_BREAKERS_LV;
+      for (const b of table) {
         if (b >= valA) return b;
       }
-      return STANDARD_BREAKERS[STANDARD_BREAKERS.length - 1];
+      return table[table.length - 1];
     };
 
-    const pickEGC = breaker => {
+    const pickEGC = (breaker, V) => {
+      const vClass = getVoltageClass(V);
+      if (vClass === 'MV' || vClass === 'HV') {
+        return 'MV/HV equipment grounding per NEC medium-voltage grounding rules (e.g., 250.180, 250 Part X).';
+      }
       for (const e of EGC_TABLE) {
         if (breaker <= e.maxBreaker) return e.egc;
       }
-      return 'Consult NEC 250.122 table';
+      return 'Consult NEC 250.122 table for LV EGC sizing.';
     };
 
     const pickConductor = (material, requiredAmp, derateFactor) => {
@@ -795,7 +830,7 @@
       motor: () => `
         <div class="space-y-3">
           <h3 class="text-xs sm:text-sm font-semibold mb-1 flex items-center">
-            <i class="fas fa-fan mr-2"></i> Motor / MCC
+            <i class="fas fa-fan mr-2"></i> Motor / MCC (LV / MV)
           </h3>
 
           <div>
@@ -803,7 +838,7 @@
             <input type="number" id="motor-hp" min="0" step="0.5"
                    class="w-full p-2 rounded text-gray-900 focus:ring-2 focus:ring-sky-500 text-sm" />
             <p class="text-[11px] text-sky-100 mt-1">
-              Used to estimate FLC if NEC table value is not entered.
+              Used to estimate FLC if NEC table value is not entered (LV/MV approximation).
             </p>
           </div>
 
@@ -847,7 +882,9 @@
           </div>
 
           <p class="text-[11px] text-sky-100">
-            When using NEC tables, always check the proper table and voltage row.
+            LV motors: use NEC 430.22, 430.52, 430.32, 430.248/250. For motors over 1000 V,
+            see MV motor rules (e.g., 430.201, 430.205, 430.206) and MV conductor tables such as 315.60
+            in your adopted code edition. Large MV motors may also have motor protection and differential relays.
           </p>
         </div>
       `,
@@ -877,6 +914,10 @@
                      class="w-full p-2 rounded text-gray-900 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500" />
             </div>
           </div>
+          <p class="text-[11px] text-sky-100">
+            For LV branch circuits see NEC 210/220/240. For MV distribution above 1000 V, check MV feeder and
+            conductor rules in the relevant NEC articles (250 / 315 etc.).
+          </p>
         </div>
       `,
       feeder: () => `
@@ -935,12 +976,16 @@
               </select>
             </div>
           </div>
+
+          <p class="text-[11px] text-sky-100">
+            Check transformer secondary protection in NEC 450, 240, 215 and MV-related parts for >1000 V.
+          </p>
         </div>
       `,
       generator: () => `
         <div class="space-y-3">
           <h3 class="text-xs sm:text-sm font-semibold mb-1 flex items-center">
-            <i class="fas fa-dharmachakra mr-2"></i> Generator
+            <i class="fas fa-dharmachakra mr-2"></i> Generator (LV / MV)
           </h3>
 
           <div>
@@ -973,7 +1018,8 @@
           </div>
 
           <p class="text-[11px] text-sky-100">
-            For generator feeders/outputs, confirm with NEC 445, 700/701/702 as applicable.
+            For generator feeders/outputs, confirm with NEC 445 and emergency/standby articles (700/701/702).
+            MV generators rely on breaker + protective relay coordination and may also have differential protection.
           </p>
         </div>
       `
@@ -1147,7 +1193,7 @@
       return { MCA, contFactor, margin, continuous };
     };
 
-    const sizeBreakerFuse = (appType, MCA, Iload, motorFLCUsed) => {
+    const sizeBreakerFuse = (appType, MCA, Iload, motorFLCUsed, V) => {
       let deviceFactor = 1.25;
       let olFactor = null;
 
@@ -1171,8 +1217,8 @@
       }
 
       const baseCurrent = motorFLCUsed || Iload;
-      const breakerSize = pickBreaker(baseCurrent * deviceFactor);
-      const fuseSize = pickBreaker(baseCurrent * deviceFactor);
+      const breakerSize = pickBreaker(baseCurrent * deviceFactor, V);
+      const fuseSize = pickBreaker(baseCurrent * deviceFactor, V);
 
       return { breakerSize, fuseSize, deviceFactor, olFactor };
     };
@@ -1259,6 +1305,7 @@
         const systemType = window._systemType || 'single';
         const V = parseFloat(document.getElementById('voltage').value) || 480;
         const appType = document.getElementById('app-type').value;
+        const vClass = getVoltageClass(V);
 
         const devName = (document.getElementById('device-name').value || '').trim();
         setText('sum-device-label', devName ? '— ' + devName : '');
@@ -1281,15 +1328,15 @@
         const { Iload, motorFLCUsed } = calculateLoadCurrent();
         const { MCA, contFactor, margin, continuous } = applyMCAFactors(Iload);
         const { breakerSize, fuseSize, deviceFactor, olFactor } =
-          sizeBreakerFuse(appType, MCA, Iload, motorFLCUsed);
+          sizeBreakerFuse(appType, MCA, Iload, motorFLCUsed, V);
 
         const conductor = pickConductor(material, MCA, derate);
-        const egc = pickEGC(breakerSize);
+        const egc = pickEGC(breakerSize, V);
 
         // SUMMARY
         setText('sum-load-current', Iload.toFixed(2) + ' A');
         setText('sum-mca', MCA.toFixed(2) + ' A');
-        setText('sum-breaker', breakerSize + ' A (est.)');
+        setText('sum-breaker', breakerSize + ' A ' + (vClass === 'MV' || vClass === 'HV' ? '(MV frame, est.)' : '(LV, est.)'));
 
         if (conductor) {
           setText('sum-conductor',
@@ -1314,16 +1361,21 @@
             return li;
           };
           notes.appendChild(mk(`System type: ${systemType === 'three' ? 'Three-phase' : 'Single-phase'}.`));
+          notes.appendChild(mk(`Voltage class (tool assumption): ${vClass === 'LV' ? 'Low Voltage (≤600 V)' :
+            (vClass === 'MV' ? 'Medium Voltage (>1000 V, up to ~5 kV)' : 'High Voltage (not fully modeled)')}.`));
           notes.appendChild(mk(`Continuous factor: ${contFactor.toFixed(2)}; design margin: ${margin.toFixed(2)}.`));
           notes.appendChild(mk(`Derating factor applied: ${derate.toFixed(2)}.`));
-          notes.appendChild(mk('Always verify with NEC tables and manufacturer data.'));
+          notes.appendChild(mk('For MV circuits over 1000 V, confirm conductor and protection rules with the MV sections of the NEC (e.g., 250.180, 315, 430 Part XI).'));
         }
 
         // DEVICES
-        setText('dev-breaker', breakerSize + ' A (est.)');
+        setText('dev-breaker', breakerSize + ' A ' + (vClass === 'MV' || vClass === 'HV' ? '(MV frame, est.)' : '(LV, est.)'));
         setText('dev-fuse', fuseSize + ' A (est.)');
         setText('dev-device-factor', (deviceFactor * 100).toFixed(0) + '% of load / FLC');
-        const icStr = `Select device with interrupting rating ≥ ${faultLevel.toFixed(1)} kA at system voltage.`;
+
+        const icStr = (vClass === 'MV' || vClass === 'HV')
+          ? `Select MV breaker frame (e.g., 600/1500/2000 A) with protective relay having interrupting/duty rating ≥ ${faultLevel.toFixed(1)} kA at system voltage.`
+          : `Select LV breaker/fuse with interrupting rating ≥ ${faultLevel.toFixed(1)} kA at system voltage.`;
         setText('dev-ic-rating', icStr);
 
         if (olFactor && motorFLCUsed) {
@@ -1345,15 +1397,16 @@
             return li;
           };
           mnotes.appendChild(mk('Motors: conductors typically at 125% FLC; SCGF device may be 175–800% depending on type.'));
-          mnotes.appendChild(mk('Use NEC 430.22, 430.52, 430.32 for detailed rules.'));
-          mnotes.appendChild(mk('Check locked-rotor current, starting method, and manufacturer data.'));
+          mnotes.appendChild(mk('Use NEC 430.22, 430.52, 430.32 for LV motors.'));
+          mnotes.appendChild(mk('For motors above 1000 V, see MV motor rules (e.g., 430.201, 430.205, 430.206) and MV conductor tables such as 315.60.'));
+          mnotes.appendChild(mk('Large MV motors may have motor protection and differential relays in addition to breaker/contactor.'));
         }
         if (motorFLCUsed) {
           setText('motor-flc', motorFLCUsed.toFixed(2) + ' A');
           setText('motor-conductor',
             'Branch-circuit conductor ≥ 125% × FLC ≈ ' + (motorFLCUsed * 1.25).toFixed(1) + ' A');
           setText('motor-sccr',
-            'SCGF device sized at ≈ ' + (deviceFactor * 100).toFixed(0) + '% of FLC.');
+            'SCGF device sized at ≈ ' + (deviceFactor * 100).toFixed(0) + '% of FLC (check coordination).');
         } else {
           setText('motor-flc', '—');
           setText('motor-conductor', 'Applicable when “Motor / MCC” is selected.');
@@ -1422,6 +1475,7 @@
           devName,
           systemType,
           V,
+          vClass,
           contFactor,
           margin,
           continuous,
@@ -1524,6 +1578,7 @@
         'Application Type',
         'System Type',
         'Voltage (V)',
+        'Voltage Class',
         'Load Current (A)',
         'MCA (A)',
         'Continuous?',
@@ -1552,6 +1607,7 @@
           s.appType,
           s.systemType === 'three' ? 'Three-phase' : 'Single-phase',
           s.V.toFixed(1),
+          s.vClass || getVoltageClass(s.V),
           s.Iload.toFixed(2),
           s.MCA.toFixed(2),
           s.continuous ? 'Yes' : 'No',
@@ -1633,7 +1689,7 @@
         // Header
         pdf.setFont('helvetica', 'bold');
         pdf.setFontSize(16);
-        pdf.text('OFORI E-sizing — NEC Sizing Report', marginLeft, y);
+        pdf.text('OFORI E-sizing — NEC LV/MV Sizing Report', marginLeft, y);
         y += 24;
 
         const devName = last.devName || '—';
@@ -1649,27 +1705,29 @@
         y += 10;
         addLine('Session Device Summary', { bold: true, size: 12 });
 
-        // Table header
-        const xNo   = marginLeft;
-        const xDev  = marginLeft + 24;
-        const xApp  = marginLeft + 170;
-        const xV    = marginLeft + 250;
-        const xIL   = marginLeft + 300;
-        const xMCA  = marginLeft + 360;
-        const xBrk  = marginLeft + 430;
-        const xCond = marginLeft + 490;
+        // Table header (with voltage class column)
+        const xNo    = marginLeft;
+        const xDev   = marginLeft + 24;
+        const xApp   = marginLeft + 150;
+        const xV     = marginLeft + 220;
+        const xClass = marginLeft + 260;
+        const xIL    = marginLeft + 300;
+        const xMCA   = marginLeft + 350;
+        const xBrk   = marginLeft + 400;
+        const xCond  = marginLeft + 450;
 
         pdf.setFont('helvetica', 'bold');
         pdf.setFontSize(9);
         if (y > 770) { pdf.addPage(); y = 50; }
-        pdf.text('No.',  xNo,  y);
-        pdf.text('Device', xDev, y);
-        pdf.text('App',   xApp, y);
-        pdf.text('V (V)', xV,   y);
-        pdf.text('Iload', xIL,  y);
-        pdf.text('MCA',   xMCA, y);
-        pdf.text('Brk',   xBrk, y);
-        pdf.text('Cond.', xCond,y);
+        pdf.text('No.',   xNo,    y);
+        pdf.text('Device', xDev,  y);
+        pdf.text('App',   xApp,   y);
+        pdf.text('V (V)', xV,     y);
+        pdf.text('Class', xClass, y);
+        pdf.text('Iload', xIL,    y);
+        pdf.text('MCA',   xMCA,   y);
+        pdf.text('Brk',   xBrk,   y);
+        pdf.text('Cond.', xCond,  y);
         y += 12;
 
         pdf.setFont('helvetica', 'normal');
@@ -1680,6 +1738,7 @@
           pdf.text(devShort, xDev, y);
           pdf.text(s.appType, xApp, y);
           pdf.text(s.V.toFixed(0), xV, y);
+          pdf.text(s.vClass || getVoltageClass(s.V), xClass, y);
           pdf.text(s.Iload.toFixed(1), xIL, y);
           pdf.text(s.MCA.toFixed(1), xMCA, y);
           pdf.text(String(s.breakerSize), xBrk, y);
@@ -1687,7 +1746,7 @@
           y += 12;
         });
 
-        // Executive summary for last device
+    // Executive summary for last device
         y += 16;
         const summaryTop = y;
         const rowHeight = 14;
@@ -1906,5 +1965,3 @@
   </script>
 </body>
 </html>
-
-
